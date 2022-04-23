@@ -1,0 +1,12 @@
+version: "3"
+services:
+    front:
+        build:
+            context: ./
+            dockerfile: ./front/Dockerfile
+        environment:
+            TZ: Asia/Tokyo
+        command: npm start
+        ports:
+            - 3000:3000
+
