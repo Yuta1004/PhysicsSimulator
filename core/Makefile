@@ -1,8 +1,10 @@
+# Settings to start container
 IMAGE := rust:1.60.0-wasm
 CURDIR := $(shell pwd)
 
 build:
-	docker run --rm -it -v $(CURDIR):/workdir rust:1.60.0-wasm wasm-pack build --scope kepler-core
+	docker run --rm -it -v $(CURDIR):/workdir $(IMAGE) wasm-pack build --scope kepler-core --target web
 
 build-image:
-	docker build -t rust:1.60.0-wasm .
+	docker build -t $(IMAGE) .
+
