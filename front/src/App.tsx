@@ -1,9 +1,7 @@
-import init, { greet } from "@kepler-core/kepler-core";
+import init from "@kepler-core/kepler-core";
 
 const App = () => {
-  init().then(() => {
-    greet("WebAssembly");
-  });
+  init().then(() => {});
 
   return (
     <div>
