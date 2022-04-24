@@ -3,11 +3,40 @@ extern crate wasm_bindgen;
 pub mod memory {
     use wasm_bindgen::prelude::*;
 
+    /* ##### NOT WebAssembly Publish Target ##### */
+
     pub trait ValueGenerator {
         fn get_step_size(&self) -> i32;
         fn update_forward(&self, mem: &mut [f64], steps: i32);
         fn update_backward(&self, mem: &mut [f64], steps: i32);
     }
+
+    impl MemManager {
+        pub fn new(blocks_num:i32, steps_num: i32, generator: Box<dyn ValueGenerator>) -> MemManager {
+            let step_size = generator.get_step_size();
+            let mut mem_manager = MemManager {
+                mem: (0..(blocks_num*steps_num*step_size)).map(|_| {0.0}).collect(),
+                blocks_num,
+                steps_num,
+                step_size,
+
+                block_l: -blocks_num,
+                block_u: -1,
+                boundary_idx: 0,
+
+                generator
+            };
+            for block in 0..blocks_num {
+                let _ = mem_manager.update(block);
+            }
+
+            mem_manager
+        }
+    }
+
+    /* ########################################## */
+
+    /* ##### WebAssembly Publish Target ##### */
 
     #[wasm_bindgen]
     #[derive(PartialEq, Debug)]
@@ -32,29 +61,6 @@ pub mod memory {
 
         /* Value Generator */
         generator: Box<dyn ValueGenerator>,
-    }
-
-    impl MemManager {
-        pub fn new(blocks_num:i32, steps_num: i32, generator: Box<dyn ValueGenerator>) -> MemManager {
-            let step_size = generator.get_step_size();
-            let mut mem_manager = MemManager {
-                mem: (0..(blocks_num*steps_num*step_size)).map(|_| {0.0}).collect(),
-                blocks_num,
-                steps_num,
-                step_size,
-
-                block_l: -blocks_num,
-                block_u: -1,
-                boundary_idx: 0,
-
-                generator
-            };
-            for block in 0..blocks_num {
-                let _ = mem_manager.update(block);
-            }
-
-            mem_manager
-        }
     }
 
     #[wasm_bindgen]
@@ -99,6 +105,8 @@ pub mod memory {
             self.boundary_idx = boundary_idx_i32 as usize;
         }
     }
+
+    /* ###################################### */
 
     #[cfg(test)]
     mod tests {
