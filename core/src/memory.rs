@@ -1,9 +1,7 @@
+extern crate wasm_bindgen;
+
 pub mod memory {
-    #[derive(PartialEq, Debug)]
-    pub enum BlockLoadError {
-        IllegalBlockId,         // 不正なブロックが指定された
-        AlreadyLoadedBlockId,   // 計算済みブロックが指定された
-    }
+    use wasm_bindgen::prelude::*;
 
     pub trait ValueGenerator {
         fn get_step_size(&self) -> i32;
@@ -11,6 +9,15 @@ pub mod memory {
         fn update_backward(&self, mem: &mut [f64], steps: i32);
     }
 
+    #[wasm_bindgen]
+    #[derive(PartialEq, Debug)]
+    pub enum BlockLoadMessage {
+        Success,                // 読み込み成功
+        IllegalBlockId,         // 不正なブロックが指定された
+        AlreadyLoadedBlockId,   // 計算済みブロックが指定された
+    }
+
+    #[wasm_bindgen]
     pub struct MemManager {
         /* Memory */
         mem: Vec<f64>,      // mem_size = blocks_num * steps_num * step_size * 8 (byte)
@@ -48,28 +55,23 @@ pub mod memory {
 
             mem_manager
         }
+    }
 
+    #[wasm_bindgen]
+    impl MemManager {
         pub fn as_mem_ptr(&self) -> *const f64 {
             self.mem.as_ptr()
         }
 
-        pub fn get_mem_info(&self) -> (i32, i32, i32) {
-            (self.blocks_num, self.steps_num, self.step_size)
-        }
-
-        pub fn get_block_info(&self) -> (i32, i32) {
-            (self.block_l, self.block_u)
-        }
-
-        pub fn update(&mut self, block: i32) -> Result<(), BlockLoadError> {
+        pub fn update(&mut self, block: i32) -> BlockLoadMessage {
             if block < 0 {
-                return Err(BlockLoadError::IllegalBlockId);
+                return BlockLoadMessage::IllegalBlockId;
             }
             if self.block_l <= block && block <= self.block_u {
-                return Err(BlockLoadError::AlreadyLoadedBlockId)
+                return BlockLoadMessage::AlreadyLoadedBlockId;
             }
             if block+1 != self.block_l && block-1 != self.block_u {
-                return Err(BlockLoadError::IllegalBlockId)
+                return BlockLoadMessage::IllegalBlockId
             }
 
             if block-1 == self.block_u {
@@ -85,7 +87,7 @@ pub mod memory {
                 self.generator.update_backward(&mut self.mem[self.boundary_idx..], self.steps_num);
             }
 
-            Ok(())
+            BlockLoadMessage::Success
         }
 
         fn update_boundary_idx(&mut self, diff: i32) {
@@ -109,40 +111,34 @@ pub mod memory {
 
             // Test 1
             assert_eq!(mem_manager.boundary_idx, 0*4);
-            assert_eq!(mem_manager.get_block_info(), (0, 5));
+            assert_eq!((mem_manager.block_l, mem_manager.block_u), (0, 5));
 
             // Test 2
-            assert!(mem_manager.update(6).is_ok());
+            assert_eq!(mem_manager.update(6), BlockLoadMessage::Success);
             assert_eq!(mem_manager.boundary_idx, 10*4);
-            assert_eq!(mem_manager.get_block_info(), (1, 6));
-            assert!(mem_manager.update(7).is_ok());
-            assert_eq!(mem_manager.boundary_idx, 20*4);
-            assert_eq!(mem_manager.get_block_info(), (2, 7));
+            assert_eq!((mem_manager.block_l, mem_manager.block_u), (1, 6));
 
             // Test 3
-            assert!(mem_manager.update(1).is_ok());
-            assert_eq!(mem_manager.boundary_idx, 10*4);
-            assert_eq!(mem_manager.get_block_info(), (1, 6));
-            assert!(mem_manager.update(0).is_ok());
+            assert_eq!(mem_manager.update(0), BlockLoadMessage::Success);
             assert_eq!(mem_manager.boundary_idx, 0*4);
-            assert_eq!(mem_manager.get_block_info(), (0, 5));
+            assert_eq!((mem_manager.block_l, mem_manager.block_u), (0, 5));
 
             // Test 4
             match mem_manager.update(7) {
-                Ok(_) => assert!(false),
-                Err(err) => assert_eq!(err, BlockLoadError::IllegalBlockId)
+                BlockLoadMessage::IllegalBlockId => assert!(true),
+                _ => assert!(false)
             }
 
             // Test 5
             match mem_manager.update(-1) {
-                Ok(_) => assert!(false),
-                Err(err) => assert_eq!(err, BlockLoadError::IllegalBlockId)
+                BlockLoadMessage::IllegalBlockId => assert!(true),
+                _ => assert!(false)
             }
 
             // Test 6
             match mem_manager.update(4) {
-                Ok(_) => assert!(false),
-                Err(err) => assert_eq!(err, BlockLoadError::AlreadyLoadedBlockId)
+                BlockLoadMessage::AlreadyLoadedBlockId => assert!(true),
+                _ => assert!(false)
             }
         }
 
