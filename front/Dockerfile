@@ -5,5 +5,4 @@ COPY ./core /workdir/core
 
 WORKDIR /workdir/front
 
-RUN npm install ../core/pkg
-
+RUN npm install

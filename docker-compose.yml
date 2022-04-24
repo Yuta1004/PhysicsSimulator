@@ -8,5 +8,4 @@ services:
             TZ: Asia/Tokyo
         command: npm start
         ports:
-            - 3000:3000
-
+            - $PORT:3000
