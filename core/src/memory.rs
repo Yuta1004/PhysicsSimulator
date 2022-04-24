@@ -7,8 +7,7 @@ pub mod memory {
 
     pub trait ValueGenerator {
         fn get_step_size(&self) -> i32;
-        fn update_forward(&self, mem: &mut [f64], steps: i32);
-        fn update_backward(&self, mem: &mut [f64], steps: i32);
+        fn update(&self, mem: &mut [f64], base_step: i32, steps: i32);
     }
 
     impl MemManager {
@@ -84,13 +83,13 @@ pub mod memory {
                 self.block_l += 1;
                 self.block_u = block;
                 self.update_boundary_idx(self.steps_num*self.step_size);
-                self.generator.update_forward(&mut self.mem[self.boundary_idx..], self.steps_num);
+                self.generator.update(&mut self.mem[self.boundary_idx..], (self.boundary_idx as i32)/self.step_size, self.steps_num);
             }
             if block+1 == self.block_l {
                 self.block_l = block;
                 self.block_u -= 1;
                 self.update_boundary_idx(-self.steps_num*self.step_size);
-                self.generator.update_backward(&mut self.mem[self.boundary_idx..], self.steps_num);
+                self.generator.update(&mut self.mem[self.boundary_idx..], (self.boundary_idx as i32)/self.step_size, self.steps_num);
             }
 
             BlockLoadMessage::Success
@@ -157,21 +156,13 @@ pub mod memory {
                 4
             }
 
-            fn update_forward(&self, mem: &mut [f64], steps: i32) {
+            fn update(&self, mem: &mut [f64], base_step: i32, steps: i32) {
                 for step_idx in 0..steps {
                     for elem_idx in 0..4 {
-                        mem[(step_idx*4+elem_idx) as usize] = step_idx as f64;
+                        mem[(step_idx*4+elem_idx) as usize] = (base_step+step_idx) as f64;
                     }
                 }
             }
-
-            fn update_backward(&self, mem: &mut [f64], steps: i32) {
-                for step_idx in 0..steps {
-                    for elem_idx in 0..4 {
-                        mem[(step_idx*4+elem_idx) as usize] = step_idx as f64;
-                    }
-                }
-            } 
         }
     }
 }
