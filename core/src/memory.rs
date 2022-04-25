@@ -1,8 +1,6 @@
 extern crate wasm_bindgen;
 
 pub mod memory {
-    use std::cmp;
-
     use wasm_bindgen::prelude::*;
 
     /* ##### NOT WebAssembly Publish Target ##### */
@@ -67,8 +65,16 @@ pub mod memory {
             self.mem.as_ptr()
         }
 
-        pub fn get_mem_capacity(&self) -> usize {
-            self.mem.len()
+        pub fn get_blocks_num(&self) -> i32 {
+            self.blocks_num
+        }
+
+        pub fn get_block_size(&self) -> i32 {
+            self.steps_num*self.step_size
+        }
+
+        pub fn get_step_size(&self) -> i32 {
+            self.generator.get_step_size()
         }
 
         pub fn get_blocks_2_boundary_bef(&self, v_idx: i32) -> i32 {
