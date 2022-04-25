@@ -91,7 +91,7 @@ pub mod memory {
             self.blocks_num-self.get_blocks_2_boundary_bef(v_idx)-1
         }
 
-        pub fn load_prev(&mut self, load_blocks_num: i32) {
+        pub fn load_prev(&mut self, load_blocks_num: i32) -> i32 {
             let mut load_blocks_num = load_blocks_num;
             if self.block_l < load_blocks_num {
                 load_blocks_num = self.block_l;
@@ -102,15 +102,17 @@ pub mod memory {
                     msg => panic!("{:?}", msg)
                 }
             }
+            load_blocks_num
         }
 
-        pub fn load_next(&mut self, load_blocks_num: i32) {
+        pub fn load_next(&mut self, load_blocks_num: i32) -> i32{
             for _ in 0..load_blocks_num {
                 match self.load(self.block_u+1) {
                     BlockLoadMessage::Success => {},
                     msg => panic!("{:?}", msg)
                 }
             }
+            load_blocks_num
         }
 
         fn load(&mut self, block: i32) -> BlockLoadMessage {
