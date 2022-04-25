@@ -21,13 +21,11 @@ pub mod memory {
 
                 block_l: -blocks_num,
                 block_u: -1,
-                boundary_idx: 0,
+                boundary_idx: -steps_num*step_size,
 
                 generator
             };
-            for block in 0..blocks_num {
-                let _ = mem_manager.load(block);
-            }
+            mem_manager.load_next(blocks_num);
 
             mem_manager
         }
@@ -120,13 +118,13 @@ pub mod memory {
                 self.block_l += 1;
                 self.block_u = block;
                 self.update_boundary_idx(self.steps_num*self.step_size);
-                self.generator.update(&mut self.mem[self.boundary_idx as usize..], self.boundary_idx/self.step_size, self.steps_num);
+                self.generator.update(&mut self.mem[self.boundary_idx as usize..], block*self.steps_num*self.step_size, self.steps_num);
             }
             if block+1 == self.block_l {
                 self.block_l = block;
                 self.block_u -= 1;
                 self.update_boundary_idx(-self.steps_num*self.step_size);
-                self.generator.update(&mut self.mem[self.boundary_idx as usize..], self.boundary_idx/self.step_size, self.steps_num);
+                self.generator.update(&mut self.mem[self.boundary_idx as usize..], block*self.steps_num*self.step_size, self.steps_num);
             }
 
             BlockLoadMessage::Success
