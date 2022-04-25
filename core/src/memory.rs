@@ -23,7 +23,7 @@ pub mod memory {
 
                 block_l: -blocks_num,
                 block_u: -1,
-                boundary_idx: -steps_num*step_size,
+                boundary_idx: 0,
 
                 generator
             };
@@ -122,8 +122,8 @@ pub mod memory {
             if block-1 == self.block_u {
                 self.block_l += 1;
                 self.block_u = block;
-                self.update_boundary_idx(self.steps_num*self.step_size);
                 self.generator.update(&mut self.mem[self.boundary_idx as usize..], block*self.steps_num*self.step_size, self.steps_num);
+                self.update_boundary_idx(self.steps_num*self.step_size);
             }
             if block+1 == self.block_l {
                 self.block_l = block;
@@ -188,6 +188,17 @@ pub mod memory {
 
             // Test 3
             mem_manager.load_prev(2);
+            assert_eq!(mem_manager.boundary_idx, 0*4);
+            assert_eq!((mem_manager.block_l, mem_manager.block_u), (0, 5));
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4-1), 0);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4+0), 1);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4+1), 1);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4-1), 1);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+0), 2);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+1), 2);
+
+            // Test 4
+            mem_manager.load_prev(1);
             assert_eq!(mem_manager.boundary_idx, 0*4);
             assert_eq!((mem_manager.block_l, mem_manager.block_u), (0, 5));
             assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4-1), 0);
