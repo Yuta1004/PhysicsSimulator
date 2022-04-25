@@ -1,6 +1,8 @@
 extern crate wasm_bindgen;
 
 pub mod memory {
+    use std::cmp;
+
     use wasm_bindgen::prelude::*;
 
     /* ##### NOT WebAssembly Publish Target ##### */
@@ -86,6 +88,10 @@ pub mod memory {
         }
 
         pub fn load_prev(&mut self, load_blocks_num: i32) {
+            let mut load_blocks_num = load_blocks_num;
+            if self.block_l < load_blocks_num {
+                load_blocks_num = self.block_l;
+            }
             for _ in 0..load_blocks_num {
                 match self.load(self.block_l-1) {
                     BlockLoadMessage::Success => {},
