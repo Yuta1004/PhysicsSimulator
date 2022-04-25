@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client';
-import App from './App';
+import Kepler from './app/kepler';
 
 const container = document.getElementById("root");
 const root = createRoot(container!);
 root.render(
-  <App/>
+  <Kepler/>
 );
