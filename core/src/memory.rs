@@ -74,7 +74,6 @@ pub mod memory {
 
         pub fn get_blocks_2_boundary_bef(&self, v_idx: i32) -> i32 {
             let a_idx = self.calc_actual_idx(v_idx);
-            println!("{}", a_idx);
             let capacity = self.mem.len() as i32;
             if self.boundary_idx <= a_idx {
                 (a_idx-self.boundary_idx) / self.steps_num / self.step_size
