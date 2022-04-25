@@ -77,20 +77,6 @@ pub mod memory {
             self.generator.get_step_size()
         }
 
-        pub fn get_blocks_2_boundary_bef(&self, v_idx: i32) -> i32 {
-            let a_idx = self.calc_actual_idx(v_idx);
-            let capacity = self.mem.len() as i32;
-            if self.boundary_idx <= a_idx {
-                (a_idx-self.boundary_idx) / self.steps_num / self.step_size
-            } else {
-                (a_idx + capacity-self.boundary_idx) / self.steps_num / self.step_size
-            }
-        }
-
-        pub fn get_blocks_2_boundary_af(&self, v_idx: i32) -> i32 {
-            self.blocks_num-self.get_blocks_2_boundary_bef(v_idx)-1
-        }
-
         pub fn load_prev(&mut self, load_blocks_num: i32) -> i32 {
             let mut load_blocks_num = load_blocks_num;
             if self.block_l < load_blocks_num {
@@ -149,14 +135,6 @@ pub mod memory {
             }
             self.boundary_idx %= self.mem.len() as i32;
         }
-
-        fn calc_actual_idx(&self, v_idx: i32) -> i32 {
-            if self.boundary_idx <= v_idx {
-                v_idx + self.boundary_idx - self.block_l*self.steps_num*self.step_size
-            } else {
-                v_idx + self.boundary_idx - (self.block_u+1)*self.steps_num*self.step_size
-            }
-        }
     }
 
     /* ###################################### */
@@ -173,47 +151,21 @@ pub mod memory {
             // Test 1
             assert_eq!(mem_manager.boundary_idx, 0*4);
             assert_eq!((mem_manager.block_l, mem_manager.block_u), (0, 5));
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4-1), 0);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4+0), 1);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4+1), 1);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4-1), 1);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+0), 2);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+1), 2);
 
             // Test 2
             mem_manager.load_next(2);
             assert_eq!(mem_manager.boundary_idx, 20*4);
             assert_eq!((mem_manager.block_l, mem_manager.block_u), (2, 7));
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(70*4-1), 4);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(70*4+0), 5);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(70*4+1), 5);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+0), 0);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+1), 0);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(30*4-1), 0);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(30*4+0), 1);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(30*4+1), 1);
 
             // Test 3
             mem_manager.load_prev(2);
             assert_eq!(mem_manager.boundary_idx, 0*4);
             assert_eq!((mem_manager.block_l, mem_manager.block_u), (0, 5));
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4-1), 0);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4+0), 1);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4+1), 1);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4-1), 1);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+0), 2);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+1), 2);
 
             // Test 4
             mem_manager.load_prev(1);
             assert_eq!(mem_manager.boundary_idx, 0*4);
             assert_eq!((mem_manager.block_l, mem_manager.block_u), (0, 5));
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4-1), 0);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4+0), 1);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4+1), 1);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4-1), 1);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+0), 2);
-            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+1), 2);
 
             // Test 4
             match mem_manager.load(7) {
