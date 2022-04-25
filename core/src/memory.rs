@@ -26,7 +26,7 @@ pub mod memory {
                 generator
             };
             for block in 0..blocks_num {
-                let _ = mem_manager.update(block);
+                let _ = mem_manager.load(block);
             }
 
             mem_manager
@@ -56,7 +56,7 @@ pub mod memory {
         /* Write Support */
         block_l: i32,
         block_u: i32,
-        boundary_idx: usize,
+        boundary_idx: i32,
 
         /* Value Generator */
         generator: Box<dyn ValueGenerator>,
@@ -68,7 +68,44 @@ pub mod memory {
             self.mem.as_ptr()
         }
 
-        pub fn update(&mut self, block: i32) -> BlockLoadMessage {
+        pub fn get_mem_capacity(&self) -> usize {
+            self.mem.len()
+        }
+
+        pub fn get_blocks_2_boundary_bef(&self, v_idx: i32) -> i32 {
+            let a_idx = self.calc_actual_idx(v_idx);
+            println!("{}", a_idx);
+            let capacity = self.mem.len() as i32;
+            if self.boundary_idx <= a_idx {
+                (a_idx-self.boundary_idx) / self.steps_num / self.step_size
+            } else {
+                (a_idx + capacity-self.boundary_idx) / self.steps_num / self.step_size
+            }
+        }
+
+        pub fn get_blocks_2_boundary_af(&self, v_idx: i32) -> i32 {
+            self.blocks_num-self.get_blocks_2_boundary_bef(v_idx)-1
+        }
+
+        pub fn load_prev(&mut self, load_blocks_num: i32) {
+            for _ in 0..load_blocks_num {
+                match self.load(self.block_l-1) {
+                    BlockLoadMessage::Success => {},
+                    msg => panic!("{:?}", msg)
+                }
+            }
+        }
+
+        pub fn load_next(&mut self, load_blocks_num: i32) {
+            for _ in 0..load_blocks_num {
+                match self.load(self.block_u+1) {
+                    BlockLoadMessage::Success => {},
+                    msg => panic!("{:?}", msg)
+                }
+            }
+        }
+        
+        fn load(&mut self, block: i32) -> BlockLoadMessage {
             if block < 0 {
                 return BlockLoadMessage::IllegalBlockId;
             }
@@ -83,25 +120,32 @@ pub mod memory {
                 self.block_l += 1;
                 self.block_u = block;
                 self.update_boundary_idx(self.steps_num*self.step_size);
-                self.generator.update(&mut self.mem[self.boundary_idx..], (self.boundary_idx as i32)/self.step_size, self.steps_num);
+                self.generator.update(&mut self.mem[self.boundary_idx as usize..], self.boundary_idx/self.step_size, self.steps_num);
             }
             if block+1 == self.block_l {
                 self.block_l = block;
                 self.block_u -= 1;
                 self.update_boundary_idx(-self.steps_num*self.step_size);
-                self.generator.update(&mut self.mem[self.boundary_idx..], (self.boundary_idx as i32)/self.step_size, self.steps_num);
+                self.generator.update(&mut self.mem[self.boundary_idx as usize..], self.boundary_idx/self.step_size, self.steps_num);
             }
 
             BlockLoadMessage::Success
         }
 
         fn update_boundary_idx(&mut self, diff: i32) {
-            let mut boundary_idx_i32 = self.boundary_idx as i32 + diff;
-            if boundary_idx_i32 < 0 {
-                boundary_idx_i32 += self.mem.len() as i32;
+            self.boundary_idx += diff;
+            if self.boundary_idx < 0 {
+                self.boundary_idx += self.mem.len() as i32;
             }
-            boundary_idx_i32 %= self.mem.len() as i32;
-            self.boundary_idx = boundary_idx_i32 as usize;
+            self.boundary_idx %= self.mem.len() as i32;
+        }
+
+        fn calc_actual_idx(&self, v_idx: i32) -> i32 {
+            if self.boundary_idx <= v_idx {
+                v_idx + self.boundary_idx - self.block_l*self.steps_num*self.step_size
+            } else {
+                v_idx + self.boundary_idx - (self.block_u+1)*self.steps_num*self.step_size
+            }
         }
     }
 
@@ -119,31 +163,51 @@ pub mod memory {
             // Test 1
             assert_eq!(mem_manager.boundary_idx, 0*4);
             assert_eq!((mem_manager.block_l, mem_manager.block_u), (0, 5));
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4-1), 0);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4+0), 1);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4+1), 1);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4-1), 1);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+0), 2);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+1), 2);
 
             // Test 2
-            assert_eq!(mem_manager.update(6), BlockLoadMessage::Success);
-            assert_eq!(mem_manager.boundary_idx, 10*4);
-            assert_eq!((mem_manager.block_l, mem_manager.block_u), (1, 6));
+            mem_manager.load_next(2);
+            assert_eq!(mem_manager.boundary_idx, 20*4);
+            assert_eq!((mem_manager.block_l, mem_manager.block_u), (2, 7));
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(70*4-1), 4);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(70*4+0), 5);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(70*4+1), 5);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+0), 0);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+1), 0);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(30*4-1), 0);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(30*4+0), 1);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(30*4+1), 1);
 
             // Test 3
-            assert_eq!(mem_manager.update(0), BlockLoadMessage::Success);
+            mem_manager.load_prev(2);
             assert_eq!(mem_manager.boundary_idx, 0*4);
             assert_eq!((mem_manager.block_l, mem_manager.block_u), (0, 5));
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4-1), 0);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4+0), 1);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(10*4+1), 1);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4-1), 1);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+0), 2);
+            assert_eq!(mem_manager.get_blocks_2_boundary_bef(20*4+1), 2);
 
             // Test 4
-            match mem_manager.update(7) {
+            match mem_manager.load(7) {
                 BlockLoadMessage::IllegalBlockId => assert!(true),
                 _ => assert!(false)
             }
 
             // Test 5
-            match mem_manager.update(-1) {
+            match mem_manager.load(-1) {
                 BlockLoadMessage::IllegalBlockId => assert!(true),
                 _ => assert!(false)
             }
 
             // Test 6
-            match mem_manager.update(4) {
+            match mem_manager.load(4) {
                 BlockLoadMessage::AlreadyLoadedBlockId => assert!(true),
                 _ => assert!(false)
             }
