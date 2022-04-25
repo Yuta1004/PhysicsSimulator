@@ -7,6 +7,13 @@ pub mod memory {
 
     /* ##### NOT WebAssembly Publish Target ##### */
 
+    #[derive(PartialEq, Debug)]
+    pub enum BlockLoadMessage {
+        Success,                // 読み込み成功
+        IllegalBlockId,         // 不正なブロックが指定された
+        AlreadyLoadedBlockId,   // 計算済みブロックが指定された
+    }
+
     pub trait ValueGenerator {
         fn get_step_size(&self) -> i32;
         fn update(&self, mem: &mut [f64], base_step: i32, steps: i32);
@@ -36,14 +43,6 @@ pub mod memory {
     /* ########################################## */
 
     /* ##### WebAssembly Publish Target ##### */
-
-    #[wasm_bindgen]
-    #[derive(PartialEq, Debug)]
-    pub enum BlockLoadMessage {
-        Success,                // 読み込み成功
-        IllegalBlockId,         // 不正なブロックが指定された
-        AlreadyLoadedBlockId,   // 計算済みブロックが指定された
-    }
 
     #[wasm_bindgen]
     pub struct MemManager {
@@ -107,7 +106,7 @@ pub mod memory {
                 }
             }
         }
-        
+
         fn load(&mut self, block: i32) -> BlockLoadMessage {
             if block < 0 {
                 return BlockLoadMessage::IllegalBlockId;
