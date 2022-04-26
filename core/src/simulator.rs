@@ -1,6 +1,7 @@
 pub mod countup;
 pub mod planet;
 
+use std::cmp::max;
 use std::collections::HashMap;
 
 use crate::memory::ValueGenerator;
@@ -32,6 +33,7 @@ impl<T: Calculator+Clone> ValueGenerator for Simulator<T> {
     }
 
     fn update(&mut self, mem: &mut [f64], base_step: i32, steps: i32) {
+        let base_step = max(base_step-1, 0);
         let mut checkpoint = match self.checkpoints.contains_key(&base_step) {
             true => self.checkpoints.get(&base_step).unwrap().clone(),
             false => {
