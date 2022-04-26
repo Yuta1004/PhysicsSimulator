@@ -1,5 +1,7 @@
 import React from "react";
 
+import Viewer2D from "./components/2d/2dviewer";
+
 /*
 import init from "@kepler-core/kepler-core";
 import { SimulatorFactory, InitOutput } from "@kepler-core/kepler-core";
@@ -34,9 +36,7 @@ class Kepler extends React.Component {
 
     render() {
         return (
-            <div>
-                <p>Hi, I'm Kepler App</p>
-            </div>
+            <Viewer2D />
         );
     }
 }
