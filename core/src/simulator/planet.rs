@@ -1,15 +1,21 @@
 extern crate wasm_bindgen;
 
+use std::collections::HashMap;
+
 use wasm_bindgen::prelude::*;
 
 use crate::memory::ValueGenerator;
 
 #[wasm_bindgen]
-pub struct PlanetSimulator;
+pub struct PlanetSimulator {
+    checkpoint: HashMap<i32, StepData>
+}
 
 impl PlanetSimulator {
-    pub fn new() -> PlanetSimulator {
-        PlanetSimulator {}
+    pub fn new(x: f64, y: f64, v: f64, M: f64, dt: f64) -> PlanetSimulator {
+        let mut checkpoint = HashMap::new();
+        checkpoint.insert(0, StepData::new(x, y, v, M, dt));
+        PlanetSimulator { checkpoint }
     }
 }
 
