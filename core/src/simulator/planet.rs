@@ -25,12 +25,29 @@ impl ValueGenerator for PlanetSimulator {
     }
 
     fn update(&mut self, mem: &mut [f64], base_step: i32, steps: i32) {
+        let mut checkpoint = match self.checkpoints.contains_key(&base_step) {
+            true => self.checkpoints.get(&base_step).unwrap().clone(),
+            false => {
+                let latest_step = *self.checkpoints.keys().filter(|x| x < &&base_step).max().unwrap();
+                let mut checkpoint = self.checkpoints.get(&latest_step).unwrap().clone();
+                for _ in latest_step..base_step+1 {
+                    checkpoint.update();
+                }
+                checkpoint
+            }
+        };
         for idx in 0..steps {
-            mem[idx as usize] = (base_step+idx) as f64;
+            let idx = 4*idx as usize;
+            checkpoint.write(&mut mem[idx..idx+4]);
+            checkpoint.update();
+        }
+        if !self.checkpoints.contains_key(&(base_step+steps-1)) {
+            self.checkpoints.insert(base_step+steps, checkpoint);
         }
     }
 }
 
+#[derive(Clone)]
 struct StepData {
     x: f64,
     y: f64,
