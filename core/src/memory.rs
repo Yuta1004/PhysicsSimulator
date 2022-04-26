@@ -108,14 +108,14 @@ impl MemManager {
         if block-1 == self.block_u {
             self.block_l += 1;
             self.block_u = block;
-            self.generator.update(&mut self.mem[self.boundary_idx as usize..], block*self.steps_num*self.step_size, self.steps_num);
+            self.generator.update(&mut self.mem[self.boundary_idx as usize..], block*self.steps_num, self.steps_num);
             self.update_boundary_idx(self.steps_num*self.step_size);
         }
         if block+1 == self.block_l {
             self.block_l = block;
             self.block_u -= 1;
             self.update_boundary_idx(-self.steps_num*self.step_size);
-            self.generator.update(&mut self.mem[self.boundary_idx as usize..], block*self.steps_num*self.step_size, self.steps_num);
+            self.generator.update(&mut self.mem[self.boundary_idx as usize..], block*self.steps_num, self.steps_num);
         }
 
         BlockLoadMessage::Success
