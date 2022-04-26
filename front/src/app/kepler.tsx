@@ -6,14 +6,15 @@ import SimulatorAccessor from "./memory";
 const Kepler = () => {
     init().then(async (instance: InitOutput) => {
         const simulator = new SimulatorAccessor(
-            SimulatorFactory.new_countup_simulator(10, 100),
+            SimulatorFactory.new_planet_simulator(10, 500, 0.5, 0.0, 1.0, 1.0, 0.01),
             instance.memory,
             3,
             () => { console.log("Now Loading..."); },
             () => { console.log("Loading Completed!"); }
         );
         for(var idx = 0; idx < 6000; ++ idx) {
-            console.log(simulator.getValue());
+            let value = simulator.getValue();
+            console.log(idx + ": " + value[0] + ", " + value[1]);
             simulator.updateCursor(1);
         }
     });

@@ -1,26 +1,30 @@
-extern crate wasm_bindgen;
+use super::Calculator;
 
-use wasm_bindgen::prelude::*;
+#[derive(Clone)]
+#[allow(non_snake_case)]
+pub struct CountUp {
+    count: i32
+}
 
-use crate::memory::memory::ValueGenerator;
-
-#[wasm_bindgen]
-pub struct CountUpSimulator;
-
-impl CountUpSimulator {
-    pub fn new() -> CountUpSimulator {
-        CountUpSimulator {}
+#[allow(non_snake_case)]
+impl CountUp {
+    pub fn new(start: i32) -> CountUp {
+        CountUp { count: start }
     }
 }
 
-impl ValueGenerator for CountUpSimulator {
-    fn get_step_size(&self) -> i32 {
-        1
+impl Calculator for CountUp {
+    fn get_step_size(&self) -> i32{
+        3
     }
 
-    fn update(&self, mem: &mut [f64], base_step: i32, steps: i32) {
-        for idx in 0..steps {
-            mem[idx as usize] = (base_step+idx) as f64;
-        }
+    fn update(&mut self) {
+        self.count += 1;
+    }
+
+    fn write(&self, mem: &mut [f64]) {
+        mem[0] = (self.count+0) as f64;
+        mem[1] = (self.count+1) as f64;
+        mem[2] = (self.count+2) as f64;
     }
 }
