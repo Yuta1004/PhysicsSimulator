@@ -16,6 +16,15 @@ export default class Object extends React.Component<any, any> {
     render() {
         return (
             <Group>
+                {this.state.history.map((pos: [number, number], idx: number) =>
+                    <Circle
+                        key={idx}
+                        x={pos[0]*30}
+                        y={-pos[1]*30}
+                        radius={5}
+                        fill={this.state.color}
+                    />
+                )}
                 <Circle
                     x={this.state.x*30}
                     y={-this.state.y*30}
@@ -26,17 +35,9 @@ export default class Object extends React.Component<any, any> {
                 <Text
                     text={this.state.name}
                     x={this.state.x*30}
-                    y={-this.state.y*30}
+                    y={-this.state.y*30-30}
+                    fontSize={30}
                 />
-                {this.state.history.map((pos: [number, number], idx: number) =>
-                    <Circle
-                        key={idx}
-                        x={pos[0]*30}
-                        y={-pos[1]*30}
-                        radius={5}
-                        fill={this.state.color}
-                    />
-                )}
             </Group>
         );
     }
