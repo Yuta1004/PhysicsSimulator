@@ -1,6 +1,8 @@
 import React from "react";
 import { Stage } from "react-konva";
 
+import Background from "./components/background";
+
 class Viewer2D extends React.Component {
     state = {
         stageScale: 1,
@@ -25,6 +27,7 @@ class Viewer2D extends React.Component {
                 y={this.state.stageY}
                 draggable
             >
+                <Background/>
             </Stage>
         );
     }
@@ -34,7 +37,7 @@ class Viewer2D extends React.Component {
 
         const stage = e.target.getStage();
         const nowScale = stage.scaleX();
-        const newScale = e.evt.deltaY > 0 ? nowScale*1.2 : nowScale/1.2;
+        const newScale = e.evt.deltaY > 0 ? nowScale*1.05 : nowScale/1.05;
         const mousePos = {
             x: stage.getPointerPosition().x/nowScale - stage.x()/nowScale,
             y: stage.getPointerPosition().y/nowScale - stage.y()/nowScale
