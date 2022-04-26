@@ -3,6 +3,7 @@ import { Layer } from "react-konva";
 
 import SimulatorAccessor from "../../../../memory";
 import Object from "./components/object";
+import Controller from "./components/controller";
 
 export default class Objects extends React.Component<any, any> {
     constructor(props: any) {
@@ -24,6 +25,11 @@ export default class Objects extends React.Component<any, any> {
                 { this.state.objects.map((object: [SimulatorAccessor, JSX.Element ,React.RefObject<Object>]) =>
                     object[1]
                 )}
+                <Controller
+                    prevCallback={this.prev}
+                    nextCallback={this.next}
+                    addSimulatorCallback={this.addSimulator}
+                />
             </Layer>
         );
     }
