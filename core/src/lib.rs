@@ -13,6 +13,7 @@ use simulator::planet::Planet;
 struct SimulatorFactory;
 
 #[wasm_bindgen]
+#[allow(non_snake_case, dead_code)]
 impl SimulatorFactory {
     pub fn new_planet_simulator(blocks_num: i32, steps_num:i32, x: f64, y: f64, v: f64, M: f64, dt: f64) -> MemManager {
         MemManager::new(

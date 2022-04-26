@@ -1,6 +1,7 @@
 use super::Calculator;
 
 #[derive(Clone)]
+#[allow(non_snake_case)]
 pub struct Planet {
     x: f64,
     y: f64,
@@ -11,6 +12,7 @@ pub struct Planet {
     dt: f64
 }
 
+#[allow(non_snake_case)]
 impl Planet {
     pub fn new(x: f64, y: f64, v: f64, M: f64, dt: f64) -> Planet {
         let radius = (x.powi(2)+y.powi(2)).sqrt();
