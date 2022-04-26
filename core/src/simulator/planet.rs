@@ -15,6 +15,7 @@ impl Planet {
     pub fn new(x: f64, y: f64, v: f64, M: f64, dt: f64) -> Planet {
         let radius = (x.powi(2)+y.powi(2)).sqrt();
         let vy = (1.0/radius).sqrt() * v;
+
         Planet { x, y, vx: 0.0, vy, M, dt }
     }
 }

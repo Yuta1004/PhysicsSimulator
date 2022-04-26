@@ -20,6 +20,7 @@ impl<T: Calculator+Clone> Simulator<T> {
         let step_size = initial_checkpoint.get_step_size();
         let mut checkpoints = HashMap::new();
         checkpoints.insert(0, Box::new(initial_checkpoint));
+
         Simulator::<T> { checkpoints, step_size }
     }
 }

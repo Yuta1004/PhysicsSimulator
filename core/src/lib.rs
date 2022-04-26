@@ -15,7 +15,10 @@ struct SimulatorFactory;
 #[wasm_bindgen]
 impl SimulatorFactory {
     pub fn new_planet_simulator(blocks_num: i32, steps_num:i32, x: f64, y: f64, v: f64, M: f64, dt: f64) -> MemManager {
-        let planet = Simulator::from(Planet::new(x, y, v, M, dt));
-        MemManager::new(blocks_num, steps_num, Box::new(planet))
+        MemManager::new(
+            blocks_num,
+            steps_num,
+            Box::new(Simulator::from(Planet::new(x, y, v, M, dt)))
+        )
     }
 }
