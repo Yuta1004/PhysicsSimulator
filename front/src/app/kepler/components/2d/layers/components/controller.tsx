@@ -1,4 +1,5 @@
 import React from "react";
+import { Group } from "react-konva";
 import { Html } from "react-konva-utils";
 
 import SimulatorAccessor from "../../../../../memory";
@@ -18,12 +19,76 @@ export default class Controller extends React.Component<any, any> {
 
     render() {
         return (
-            <Html>
-                <button onClick={this.props.prevCallback}>PREV</button>
-                <button onClick={this.resumeOrStopSimulate}>RESUME/STOP</button>
-                <button onClick={this.props.nextCallback}>NEXT</button>
-                <button onClick={this.addSimulator}>ADD</button>
-            </Html>
+            <Group>
+                <Html
+                    transform={false}
+                    divProps={{ style: {
+                        background: "#ccc7",
+                        border: "1px solid black",
+                        ["border-radius"]: "15px",
+                        width: "fit-content",
+                        position: "absolute",
+                        left: "50%",
+                        right: "50%",
+                        transform: "translateX(-50%) translateY(-50%)",
+                        bottom: "-5%",
+                        padding: "15px"
+                }}}>
+                    <div style={{
+                        display: "flex",
+                        width: "100%",
+                        margin: "10px auto",
+                    }}>
+                        <button style={{ margin: "0 10px", padding: "20px" }} onClick={this.props.prevCallback}>PREV</button>
+                        <button style={{ margin: "0 10px", padding: "20px" }} onClick={this.resumeOrStopSimulate}>RESUME</button>
+                        <button style={{ margin: "0 10px", padding: "20px" }} onClick={this.props.nextCallback}>NEXT</button>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto"
+                    }}>
+                        dt(1.00)
+                        <input style={{ width: "50%", position: "absolute", left: "40%" }} type="range"/>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto"
+                    }}>
+                        speed(x1.0)
+                        <input style={{ width: "50%", position: "absolute", left: "40%" }} type="range"/>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto"
+                    }}>
+                        <button style={{ width: "100%", margin: "0 10px" }} onClick={this.addSimulator}>ADD</button>
+                        <button style={{ width: "100%", margin: "0 10px" }} onClick={this.addSimulator}>RESET</button>
+                    </div>
+                </Html>
+                <Html
+                    transform={false}
+                    divProps={{ style: {
+                        width: "fit-content",
+                        position: "absolute",
+                        left: "50%",
+                        right: "50%",
+                        transform: "translateX(-50%) translateY(-50%)",
+                        bottom: "-3%",
+                        padding: "15px"
+                }}}>
+                    <div style={{
+                        display: "flex",
+                        width: "100%",
+                        margin: "0auto"
+                    }}>
+                        <input type="checkbox"/>
+                        Display Control Panel
+                    </div>
+                </Html>
+            </Group>
         );
     }
 
