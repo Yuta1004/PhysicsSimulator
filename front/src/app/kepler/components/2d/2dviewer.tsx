@@ -4,15 +4,16 @@ import { Stage } from "react-konva";
 import Background from "./layers/background";
 import Objects from "./layers/objects";
 
-export default class Viewer2D extends React.Component {
-    state = {
-        stageScale: 0.6,
-        stageX: window.innerWidth/2,
-        stageY: window.innerHeight/2
-    };
-    
+export default class Viewer2D extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
+
+        this.state = {
+            stageScale: 0.6,
+            stageX: window.innerWidth/2,
+            stageY: window.innerHeight/2
+        };
+
         this.onWheel = this.onWheel.bind(this);
     }
 
