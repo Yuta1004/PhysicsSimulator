@@ -1,4 +1,5 @@
 pub mod countup;
+pub mod comet;
 pub mod planet;
 
 use std::cmp::max;
