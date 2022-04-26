@@ -32,7 +32,7 @@ class SimulatorAccessor {
         this.stepIdx = 0;
         this.memIdx = 0;
         this.okStepIdxL = 0;
-        this.okStepIdxU = this.blocks_num*this.block_size-1;
+        this.okStepIdxU = this.blocks_num*this.block_size/this.step_size-1;
     }
 
     public getValue() {
@@ -40,16 +40,21 @@ class SimulatorAccessor {
             this.loadStartCallback();
             if (this.speed > 0) {
                 this.memManager.load_next(this.loadBlocks);
-                this.okStepIdxU += this.loadBlocks*this.block_size;
-                this.okStepIdxL += this.loadBlocks*this.block_size;
+                this.okStepIdxU += this.loadBlocks*this.block_size/this.step_size;
+                this.okStepIdxL += this.loadBlocks*this.block_size/this.step_size;
             } else {
                 const loadedBlocksNum = this.memManager.load_prev(this.loadBlocks);
-                this.okStepIdxL -= loadedBlocksNum*this.block_size;
-                this.okStepIdxU -= loadedBlocksNum*this.block_size;
+                this.okStepIdxL -= loadedBlocksNum*this.block_size/this.step_size;
+                this.okStepIdxU -= loadedBlocksNum*this.block_size/this.step_size;
             }
             this.loadFinishCallback();
         }
-        return this.sharedMemory[this.memIdx];
+
+        const values = [];
+        for (var idx = this.memIdx; idx < this.memIdx+this.step_size; ++ idx) {
+            values.push(this.sharedMemory[idx]);
+        }
+        return values;
     }
 
     public updateCursor(diff: number) {
