@@ -2,7 +2,7 @@ extern crate wasm_bindgen;
 
 use wasm_bindgen::prelude::*;
 
-use crate::memory::memory::ValueGenerator;
+use crate::memory::ValueGenerator;
 
 #[wasm_bindgen]
 pub struct CountUpSimulator;

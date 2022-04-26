@@ -7,7 +7,7 @@ extern crate wasm_bindgen;
 
 use wasm_bindgen::prelude::*;
 
-use memory::memory::MemManager;
+use memory::MemManager;
 use simulator::countup::CountUpSimulator;
 
 #[wasm_bindgen]
