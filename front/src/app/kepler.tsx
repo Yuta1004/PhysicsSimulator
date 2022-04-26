@@ -6,7 +6,7 @@ import SimulatorAccessor from "./memory";
 const Kepler = () => {
     init().then(async (instance: InitOutput) => {
         const simulator = new SimulatorAccessor(
-            SimulatorFactory.new_planet_simulator(10, 500, 0.5, 0.0, 1.0, 1.0, 0.01),
+            SimulatorFactory.new_planet(10, 500, 0.5, 0.0, 1.0, 1.0, 0.01),
             instance.memory,
             3,
             () => { console.log("Now Loading..."); },

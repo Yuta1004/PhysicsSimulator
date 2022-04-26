@@ -17,7 +17,7 @@ struct SimulatorFactory;
 #[wasm_bindgen]
 #[allow(non_snake_case, dead_code)]
 impl SimulatorFactory {
-    pub fn new_countup_simulator(blocks_num: i32, steps_num: i32, start: i32) -> MemManager {
+    pub fn new_countup(blocks_num: i32, steps_num: i32, start: i32) -> MemManager {
         MemManager::new(
             blocks_num,
             steps_num,
@@ -25,7 +25,7 @@ impl SimulatorFactory {
         )
     }
 
-    pub fn new_comet_simulator(blocks_num: i32, steps_num:i32, x: f64, y: f64, v: f64, M: f64, dt: f64) -> MemManager {
+    pub fn new_comet(blocks_num: i32, steps_num:i32, x: f64, y: f64, v: f64, M: f64, dt: f64) -> MemManager {
         MemManager::new(
             blocks_num,
             steps_num,
@@ -33,7 +33,7 @@ impl SimulatorFactory {
         )
     }
 
-    pub fn new_planet_simulator(blocks_num: i32, steps_num:i32, x: f64, y: f64, v: f64, M: f64, dt: f64) -> MemManager {
+    pub fn new_planet(blocks_num: i32, steps_num:i32, x: f64, y: f64, v: f64, M: f64, dt: f64) -> MemManager {
         MemManager::new(
             blocks_num,
             steps_num,
