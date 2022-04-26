@@ -28,8 +28,9 @@ export default class Object extends React.Component<any, any> {
                     x={this.state.x}
                     y={this.state.y}
                 />
-                {this.state.history.map((pos: [number, number]) => 
+                {this.state.history.map((pos: [number, number], idx: number) =>
                     <Circle
+                        key={idx}
                         x={pos[0]}
                         y={pos[1]}
                         radius={5}
