@@ -24,7 +24,7 @@ impl ValueGenerator for PlanetSimulator {
         4
     }
 
-    fn update(&self, mem: &mut [f64], base_step: i32, steps: i32) {
+    fn update(&mut self, mem: &mut [f64], base_step: i32, steps: i32) {
         for idx in 0..steps {
             mem[idx as usize] = (base_step+idx) as f64;
         }

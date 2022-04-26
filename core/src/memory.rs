@@ -13,7 +13,7 @@ pub enum BlockLoadMessage {
 
 pub trait ValueGenerator {
     fn get_step_size(&self) -> i32;
-    fn update(&self, mem: &mut [f64], base_step: i32, steps: i32);
+    fn update(&mut self, mem: &mut [f64], base_step: i32, steps: i32);
 }
 
 impl MemManager {
@@ -192,7 +192,7 @@ mod tests {
             4
         }
 
-        fn update(&self, mem: &mut [f64], base_step: i32, steps: i32) {
+        fn update(&mut self, mem: &mut [f64], base_step: i32, steps: i32) {
             for step_idx in 0..steps {
                 for elem_idx in 0..4 {
                     mem[(step_idx*4+elem_idx) as usize] = (base_step+step_idx) as f64;
