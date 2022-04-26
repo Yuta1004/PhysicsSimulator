@@ -1,5 +1,7 @@
 pub mod memory;
-pub mod simulator { }
+pub mod simulator {
+    pub mod planet;
+}
 
 extern crate wasm_bindgen;
 
