@@ -5,15 +5,15 @@ use wasm_bindgen::prelude::*;
 use crate::memory::ValueGenerator;
 
 #[wasm_bindgen]
-pub struct CountUpSimulator;
+pub struct PlanetSimulator;
 
-impl CountUpSimulator {
-    pub fn new() -> CountUpSimulator {
-        CountUpSimulator {}
+impl PlanetSimulator {
+    pub fn new() -> PlanetSimulator {
+        PlanetSimulator {}
     }
 }
 
-impl ValueGenerator for CountUpSimulator {
+impl ValueGenerator for PlanetSimulator {
     fn get_step_size(&self) -> i32 {
         1
     }
