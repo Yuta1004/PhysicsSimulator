@@ -2,8 +2,6 @@ extern crate wasm_bindgen;
 
 use wasm_bindgen::prelude::*;
 
-/* ##### NOT WebAssembly Publish Target ##### */
-
 #[derive(PartialEq, Debug)]
 pub enum BlockLoadMessage {
     Success,                // 読み込み成功
@@ -14,6 +12,23 @@ pub enum BlockLoadMessage {
 pub trait ValueGenerator {
     fn get_step_size(&self) -> i32;
     fn update(&mut self, mem: &mut [f64], base_step: i32, steps: i32);
+}
+
+#[wasm_bindgen]
+pub struct MemManager {
+    /* Memory */
+    mem: Vec<f64>,      // mem_size = blocks_num * steps_num * step_size * 8 (byte)
+    blocks_num: i32,
+    steps_num: i32,
+    step_size: i32,
+
+    /* Write Support */
+    block_l: i32,
+    block_u: i32,
+    boundary_idx: i32,
+
+    /* Value Generator */
+    generator: Box<dyn ValueGenerator>,
 }
 
 impl MemManager {
@@ -35,27 +50,6 @@ impl MemManager {
 
         mem_manager
     }
-}
-
-/* ########################################## */
-
-/* ##### WebAssembly Publish Target ##### */
-
-#[wasm_bindgen]
-pub struct MemManager {
-    /* Memory */
-    mem: Vec<f64>,      // mem_size = blocks_num * steps_num * step_size * 8 (byte)
-    blocks_num: i32,
-    steps_num: i32,
-    step_size: i32,
-
-    /* Write Support */
-    block_l: i32,
-    block_u: i32,
-    boundary_idx: i32,
-
-    /* Value Generator */
-    generator: Box<dyn ValueGenerator>,
 }
 
 #[wasm_bindgen]
@@ -135,8 +129,6 @@ impl MemManager {
         self.boundary_idx %= self.mem.len() as i32;
     }
 }
-
-/* ###################################### */
 
 #[cfg(test)]
 mod tests {
