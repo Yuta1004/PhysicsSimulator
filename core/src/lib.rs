@@ -10,6 +10,7 @@ use simulator::Simulator;
 use simulator::countup::CountUp;
 use simulator::comet::Comet;
 use simulator::planet::Planet;
+use simulator::satelite::Satelite;
 
 #[wasm_bindgen]
 struct SimulatorFactory;
@@ -38,6 +39,14 @@ impl SimulatorFactory {
             blocks_num,
             steps_num,
             Box::new(Simulator::from(Planet::new(x, y, v, M, dt)))
+        )
+    }
+
+    pub fn new_satelite(blocks_num: i32, steps_num:i32, x: f64, y: f64, vx: f64, vy: f64, M: f64, dt: f64) -> MemManager {
+        MemManager::new(
+            blocks_num,
+            steps_num,
+            Box::new(Simulator::from(Satelite::new(x, y, vx, vy, M, dt)))
         )
     }
 }

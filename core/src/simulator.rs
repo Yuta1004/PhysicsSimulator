@@ -1,6 +1,7 @@
 pub mod countup;
 pub mod comet;
 pub mod planet;
+pub mod satelite;
 
 use std::cmp::max;
 use std::collections::HashMap;
