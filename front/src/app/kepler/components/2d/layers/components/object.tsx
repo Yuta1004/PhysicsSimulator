@@ -17,22 +17,22 @@ export default class Object extends React.Component<any, any> {
         return (
             <Group>
                 <Circle
-                    x={this.state.x}
-                    y={this.state.y}
+                    x={this.state.x*30}
+                    y={-this.state.y*30}
                     radius={20}
                     stroke={this.state.color}
                     fill={this.state.color+"aa"}
                 />
                 <Text
                     text={this.state.name}
-                    x={this.state.x}
-                    y={this.state.y}
+                    x={this.state.x*30}
+                    y={-this.state.y*30}
                 />
                 {this.state.history.map((pos: [number, number], idx: number) =>
                     <Circle
                         key={idx}
-                        x={pos[0]}
-                        y={pos[1]}
+                        x={pos[0]*30}
+                        y={-pos[1]*30}
                         radius={5}
                         fill={this.state.color}
                     />
