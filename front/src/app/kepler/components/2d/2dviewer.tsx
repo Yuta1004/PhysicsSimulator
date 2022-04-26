@@ -37,7 +37,7 @@ class Viewer2D extends React.Component {
 
         const stage = e.target.getStage();
         const nowScale = stage.scaleX();
-        const newScale = e.evt.deltaY > 0 ? nowScale*1.05 : nowScale/1.05;
+        const newScale = Math.max(e.evt.deltaY > 0 ? nowScale*1.05 : nowScale/1.05, 0.25);
         const mousePos = {
             x: stage.getPointerPosition().x/nowScale - stage.x()/nowScale,
             y: stage.getPointerPosition().y/nowScale - stage.y()/nowScale
