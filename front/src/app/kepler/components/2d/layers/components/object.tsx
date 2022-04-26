@@ -9,7 +9,7 @@ class Object extends React.Component<any, any> {
             color: props.color,
             x: props.x,
             y: props.y,
-            history: [[10, 10], [20, 20], [30, 30]]
+            history: []
         };
     }
 
