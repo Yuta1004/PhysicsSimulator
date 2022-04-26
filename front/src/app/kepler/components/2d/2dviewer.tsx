@@ -2,6 +2,7 @@ import React from "react";
 import { Stage } from "react-konva";
 
 import Background from "./components/background";
+import Objects from "./components/objects";
 
 class Viewer2D extends React.Component {
     state = {
@@ -28,6 +29,7 @@ class Viewer2D extends React.Component {
                 draggable
             >
                 <Background/>
+                <Objects/>
             </Stage>
         );
     }
