@@ -1,7 +1,7 @@
 import init from "@kepler-core/kepler-core";
 import { SimulatorFactory, InitOutput } from "@kepler-core/kepler-core";
 
-import SimulatorAccessor from "./memory";
+import SimulatorAccessor from "./../memory";
 
 const Kepler = () => {
     init().then(async (instance: InitOutput) => {
