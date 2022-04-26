@@ -4,7 +4,7 @@ import { Layer } from "react-konva";
 import SimulatorAccessor from "../../../../memory";
 import Object from "./components/object";
 
-class Objects extends React.Component<any, any> {
+export default class Objects extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         
@@ -65,5 +65,3 @@ class Objects extends React.Component<any, any> {
         this.setState({ _dummy: this.state._dummy-1 })
     }
 }
-
-export default Objects;

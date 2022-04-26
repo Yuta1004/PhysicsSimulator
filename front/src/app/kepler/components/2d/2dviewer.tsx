@@ -4,7 +4,7 @@ import { Stage } from "react-konva";
 import Background from "./layers/background";
 import Objects from "./layers/objects";
 
-class Viewer2D extends React.Component {
+export default class Viewer2D extends React.Component {
     state = {
         stageScale: 0.6,
         stageX: window.innerWidth/2,
@@ -52,5 +52,3 @@ class Viewer2D extends React.Component {
         });
     }
 }
-
-export default Viewer2D;

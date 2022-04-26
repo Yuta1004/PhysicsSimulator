@@ -1,7 +1,7 @@
 import React from "react";
 import { Text, Circle } from "react-konva";
 
-class Object extends React.Component<any, any> {
+export default class Object extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -50,5 +50,3 @@ class Object extends React.Component<any, any> {
         });
     }
 }
-
-export default Object;

@@ -1,6 +1,6 @@
 import init, { MemManager, InitOutput } from "@kepler-core/kepler-core";
 
-class SimulatorAccessor {
+export default class SimulatorAccessor {
     private memManager: MemManager
     private blocks_num: number
     private block_size: number
@@ -71,5 +71,3 @@ class SimulatorAccessor {
         }
     }
 }
-
-export default SimulatorAccessor;

@@ -1,7 +1,7 @@
 import React from "react";
 import { Layer, Rect, Circle, Line, Text } from "react-konva";
 
-class Background extends React.Component {
+export default class Background extends React.Component {
     constructor(props: any) {
         super(props);
     }
@@ -27,5 +27,3 @@ class Background extends React.Component {
         );
     }
 }
-
-export default Background;
