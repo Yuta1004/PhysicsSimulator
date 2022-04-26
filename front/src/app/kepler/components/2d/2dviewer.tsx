@@ -1,8 +1,8 @@
 import React from "react";
 import { Stage } from "react-konva";
 
-import Background from "./components/background";
-import Objects from "./components/objects";
+import Background from "./layers/background";
+import Objects from "./layers/objects";
 
 class Viewer2D extends React.Component {
     state = {
