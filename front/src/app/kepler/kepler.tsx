@@ -1,9 +1,11 @@
+import React from "react";
+
+/*
 import init from "@kepler-core/kepler-core";
 import { SimulatorFactory, InitOutput } from "@kepler-core/kepler-core";
-
 import SimulatorAccessor from "./../memory";
 
-const Kepler = () => {
+const _Kepler = () => {
     init().then(async (instance: InitOutput) => {
         const simulator = new SimulatorAccessor(
             SimulatorFactory.new_planet(10, 500, 0.5, 0.0, 1.0, 1.0, 0.01),
@@ -24,6 +26,19 @@ const Kepler = () => {
         <p>Hello React App!</p>
         </div>
     );
+}
+*/
+
+class Kepler extends React.Component {
+    construcor() { }
+
+    render() {
+        return (
+            <div>
+                <p>Hi, I'm Kepler App</p>
+            </div>
+        );
+    }
 }
 
 export default Kepler;
