@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Circle } from "react-konva";
+import { Group, Text, Circle } from "react-konva";
 
 export default class Object extends React.Component<any, any> {
     constructor(props: any) {
@@ -15,7 +15,7 @@ export default class Object extends React.Component<any, any> {
 
     render() {
         return (
-            <div>
+            <Group>
                 <Circle
                     x={this.state.x}
                     y={this.state.y}
@@ -36,7 +36,7 @@ export default class Object extends React.Component<any, any> {
                         fill={this.state.color}
                     />
                 )}
-            </div>
+            </Group>
         );
     }
 
