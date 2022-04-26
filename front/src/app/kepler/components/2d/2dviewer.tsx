@@ -5,7 +5,7 @@ import Background from "./components/background";
 
 class Viewer2D extends React.Component {
     state = {
-        stageScale: 1,
+        stageScale: 0.6,
         stageX: window.innerWidth/2,
         stageY: window.innerHeight/2
     };
