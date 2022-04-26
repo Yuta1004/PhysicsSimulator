@@ -8,14 +8,14 @@ use crate::memory::ValueGenerator;
 
 #[wasm_bindgen]
 pub struct PlanetSimulator {
-    checkpoint: HashMap<i32, StepData>
+    checkpoints: HashMap<i32, StepData>
 }
 
 impl PlanetSimulator {
     pub fn new(x: f64, y: f64, v: f64, M: f64, dt: f64) -> PlanetSimulator {
-        let mut checkpoint = HashMap::new();
-        checkpoint.insert(0, StepData::new(x, y, v, M, dt));
-        PlanetSimulator { checkpoint }
+        let mut checkpoints = HashMap::new();
+        checkpoints.insert(0, StepData::new(x, y, v, M, dt));
+        PlanetSimulator { checkpoints }
     }
 }
 
