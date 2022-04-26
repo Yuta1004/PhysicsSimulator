@@ -8,6 +8,7 @@ use wasm_bindgen::prelude::*;
 use memory::MemManager;
 use simulator::Simulator;
 use simulator::countup::CountUp;
+use simulator::comet::Comet;
 use simulator::planet::Planet;
 
 #[wasm_bindgen]
@@ -21,6 +22,14 @@ impl SimulatorFactory {
             blocks_num,
             steps_num,
             Box::new(Simulator::from(CountUp::new(start)))
+        )
+    }
+
+    pub fn new_comet_simulator(blocks_num: i32, steps_num:i32, x: f64, y: f64, v: f64, M: f64, dt: f64) -> MemManager {
+        MemManager::new(
+            blocks_num,
+            steps_num,
+            Box::new(Simulator::from(Comet::new(x, y, v, M, dt)))
         )
     }
 
