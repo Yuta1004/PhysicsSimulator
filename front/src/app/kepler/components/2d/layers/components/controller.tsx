@@ -1,5 +1,5 @@
 import React from "react";
-import { Group } from "react-konva";
+import { Group, Label } from "react-konva";
 import { Html } from "react-konva-utils";
 import { IoPlaySharp, IoPlayForwardSharp, IoPlayBackSharp, IoStopSharp } from "react-icons/io5";
 
@@ -15,7 +15,8 @@ export default class Controller extends React.Component<any, any> {
             playIcon: <IoPlaySharp size={20}/>,
             dt: 1.0,
             speed: 1.0,
-            panelVisible: "visible"
+            panelVisible: "visible",
+            started: false
         };
 
         this.resumeOrStopSimulate = this.resumeOrStopSimulate.bind(this);
@@ -68,6 +69,7 @@ export default class Controller extends React.Component<any, any> {
                             max={2.0}
                             step={0.01}
                             onChange={(e: any) => { this.setState({ dt: e.target.value }); }}
+                            disabled={this.state.started}
                         />
                     </div>
                     <div style={{
@@ -104,6 +106,7 @@ export default class Controller extends React.Component<any, any> {
                                 if (this.state.intervalID !== -1) {
                                     this.resumeOrStopSimulate();
                                 }
+                                this.setState({ started: false });
                             }}
                         >
                             リセット
@@ -149,7 +152,8 @@ export default class Controller extends React.Component<any, any> {
             }, 100/this.state.speed);
             this.setState({
                 intervalID: intervalID,
-                playIcon: <IoStopSharp size={20}/>
+                playIcon: <IoStopSharp size={20}/>,
+                started: true
             });
         } else {
             clearInterval(this.state.intervalID);
