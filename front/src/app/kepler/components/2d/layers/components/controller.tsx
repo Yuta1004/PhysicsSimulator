@@ -14,14 +14,11 @@ export default class Controller extends React.Component<any, any> {
         this.state = {
             intervalID: -1,
             playIcon: <IoPlaySharp size={20}/>,
-
             dt: 1.0,
             speed: 1.0,
-
             started: false,
-            panelVisible: "visible",
-           
-            addWindowVisible: "hidden"
+            panelVisibility: "visible",
+            addUIVisibility: "hidden"
         };
 
         this.resumeOrStopSimulate = this.resumeOrStopSimulate.bind(this);
@@ -44,7 +41,7 @@ export default class Controller extends React.Component<any, any> {
                         transform: "translateX(-50%) translateY(-50%)",
                         bottom: "-5%",
                         padding: "15px",
-                        visibility: this.state.panelVisible
+                        visibility: this.state.panelVisibility
                 }}}>
                     <div style={{
                         display: "flex",
@@ -106,7 +103,7 @@ export default class Controller extends React.Component<any, any> {
                         <button
                             style={{ width: "100%", margin: "0 10px" }}
                             onClick={() => {
-                                this.setState({ addWindowVisible: "visible"});
+                                this.setState({ addUIVisibility: "visible"});
                             }}
                         >
                             追加
@@ -143,10 +140,10 @@ export default class Controller extends React.Component<any, any> {
                     }}>
                         <input
                             type="checkbox"
-                            checked={this.state.panelVisible === "visible"}
+                            checked={this.state.panelVisibility === "visible"}
                             onChange={(e: any) => {
                                 this.setState({
-                                    panelVisible: e.target.checked ? "visible" : "hidden"  
+                                    panelVisibility: e.target.checked ? "visible" : "hidden"  
                                 });
                             }}
                         />
@@ -154,9 +151,9 @@ export default class Controller extends React.Component<any, any> {
                     </div>
                 </Html>
                 <ObjectAdder
-                    visibility={this.state.addWindowVisible}
+                    visibility={this.state.addUIVisibility}
                     addCallback={this.addSimulator}
-                    cancelCallback={() => { this.setState({ addWindowVisible: "hidden" }); }}
+                    cancelCallback={() => { this.setState({ addUIVisibility: "hidden" }); }}
                 />
             </Group>
         );
