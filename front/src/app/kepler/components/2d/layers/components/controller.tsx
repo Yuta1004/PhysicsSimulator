@@ -13,10 +13,14 @@ export default class Controller extends React.Component<any, any> {
         this.state = {
             intervalID: -1,
             playIcon: <IoPlaySharp size={20}/>,
+
             dt: 1.0,
             speed: 1.0,
+
+            started: false,
             panelVisible: "visible",
-            started: false
+           
+            addWindowVisible: "hidden"
         };
 
         this.resumeOrStopSimulate = this.resumeOrStopSimulate.bind(this);
@@ -98,7 +102,14 @@ export default class Controller extends React.Component<any, any> {
                         width: "90%",
                         margin: "10px auto"
                     }}>
-                        <button style={{ width: "100%", margin: "0 10px" }} onClick={this.addSimulator}>ADD</button>
+                        <button
+                            style={{ width: "100%", margin: "0 10px" }}
+                            onClick={() => {
+                                this.setState({ addWindowVisible: "visible"});
+                            }}
+                        >
+                            追加
+                        </button>
                         <button
                             style={{ width: "100%", margin: "0 10px" }}
                             onClick={() => {
@@ -110,6 +121,107 @@ export default class Controller extends React.Component<any, any> {
                             }}
                         >
                             リセット
+                        </button>
+                    </div>
+                </Html>
+                <Html
+                    transform={false}
+                    divProps={{ style: {
+                        background: "#cccf",
+                        border: "1px solid black",
+                        ["border-radius"]: "15px",
+                        width: "fit-content",
+                        position: "absolute",
+                        left: "50%",
+                        right: "50%",
+                        transform: "translateX(-50%) translateY(-50%)",
+                        top: "40%",
+                        padding: "15px",
+                        ["text-align"]: "center",
+                        visibility: this.state.addWindowVisible
+                }}}>
+                    <h3>追加オブジェクト設定</h3>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        種類:
+                        <select style={{ width: "60%", position: "absolute", left: "30%" }}>
+                            <option value="planet">惑星</option>
+                            <option value="satelite">人工衛星</option>
+                            <option value="comet">彗星</option>
+                        </select>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        X:
+                        <input style={{ width: "45%", position: "absolute", left: "40%" }} type="value"/>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        Y:
+                        <input style={{ width: "45%", position: "absolute", left: "40%" }} type="value"/>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        Vx:
+                        <input style={{ width: "45%", position: "absolute", left: "40%" }} type="value"/>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        Vy:
+                        <input style={{ width: "45%", position: "absolute", left: "40%" }} type="value"/>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        M:
+                        <input style={{ width: "45%", position: "absolute", left: "40%" }} type="value"/>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        タグ:
+                        <input style={{ width: "45%", position: "absolute", left: "40%" }} type="text"/>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "15px auto",
+                    }}>
+                        表示色:
+                        <input style={{ width: "45%", position: "absolute", left: "40%" }} type="color"/>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        <button style={{ width: "fit-content", margin: "10px 10px" }} onClick={this.addSimulator}>追加</button>
+                        <button
+                            style={{ width: "fit-content", margin: "10px 10px" }}
+                            onClick={() => {
+                                this.setState({ addWindowVisible: "hidden" });
+                            }}
+                        >
+                            キャンセル
                         </button>
                     </div>
                 </Html>
