@@ -12,7 +12,9 @@ export default class Controller extends React.Component<any, any> {
 
         this.state = {
             intervalID: -1,
-            playIcon: <IoPlaySharp size={20}/>
+            playIcon: <IoPlaySharp size={20}/>,
+            dt: 1.0,
+            speed: 1.0
         };
 
         this.resumeOrStopSimulate = this.resumeOrStopSimulate.bind(this);
@@ -56,16 +58,36 @@ export default class Controller extends React.Component<any, any> {
                         width: "90%",
                         margin: "10px auto"
                     }}>
-                        dt(1.00)
-                        <input style={{ width: "50%", position: "absolute", left: "40%" }} type="range"/>
+                        dt({this.state.dt})
+                        <input
+                            style={{ width: "50%", position: "absolute", left: "40%" }}
+                            type="range"
+                            min={0.01}
+                            max={2.0}
+                            step={0.01}
+                            onChange={(e: any) => { this.setState({ dt: e.target.value }); }}
+                        />
                     </div>
                     <div style={{
                         display: "flex",
                         width: "90%",
                         margin: "10px auto"
                     }}>
-                        speed(x1.0)
-                        <input style={{ width: "50%", position: "absolute", left: "40%" }} type="range"/>
+                        speed({this.state.speed})
+                        <input
+                            style={{ width: "50%", position: "absolute", left: "40%" }}
+                            type="range"
+                            min={0.1}
+                            max={2.0}
+                            step={0.1}
+                            onChange={(e:any) => {
+                                this.setState({ speed: e.target.value });
+                                if (this.state.intervalID !== -1) {
+                                    this.resumeOrStopSimulate();
+                                    this.resumeOrStopSimulate();
+                                }
+                            }}
+                        />
                     </div>
                     <div style={{
                         display: "flex",
@@ -104,7 +126,7 @@ export default class Controller extends React.Component<any, any> {
         if (this.state.intervalID === -1) {
             const intervalID = setInterval(() => {
                 this.props.nextCallback();
-            }, 500);
+            }, 100/this.state.speed);
             this.setState({
                 intervalID: intervalID,
                 playIcon: <IoStopSharp size={20}/>
@@ -121,7 +143,7 @@ export default class Controller extends React.Component<any, any> {
     private addSimulator() {
         init().then((instance: InitOutput) => {
             const simulator = new SimulatorAccessor(
-                SimulatorFactory.new_planet(10, 500, 0.5, 0.0, 1.2, 1.0, 0.01),
+                SimulatorFactory.new_planet(10, 500, 0.5, 0.0, 1.2, 1.0, this.state.dt),
                 instance.memory,
                 3,
                 () => { console.log("Now Loading..."); },
