@@ -68,7 +68,7 @@ export default class ObjectAdder extends React.Component<any, any> {
                     ["text-align"]: "center",
                     visibility: this.props.visibility
             }}}>
-                <h3>追加オブジェクト設定</h3>
+                <h3>オブジェクト設定</h3>
                 <div style={{
                     display: "flex",
                     width: "90%",
@@ -183,35 +183,48 @@ export default class ObjectAdder extends React.Component<any, any> {
                         onChange={this.onValueChange}
                     />
                 </div>
-                <div style={{
-                    display: "flex",
-                    width: "90%",
-                    margin: "10px auto",
-                }}>
-                    <button
-                        style={{ width: "fit-content", margin: "10px 10px" }}
-                        onClick={() => {
-                            this.props.addCallback(
-                                this.state.type,
-                                this.state.x,
-                                this.state.y,
-                                this.state.vx,
-                                this.state.vy,
-                                this.state.M,
-                                this.state.tag,
-                                this.state.color
-                            );
-                        }}
-                    >
-                        追加
-                    </button>
-                    <button
-                        style={{ width: "fit-content", margin: "10px 10px" }}
-                        onClick={this.props.cancelCallback}
-                    >
-                        キャンセル
-                    </button>
-                </div>
+                <hr style={{ margin: "20px 0 10px 0" }}/>
+                <button
+                    style={{ width: "100%", margin: "5px 0" }}
+                    onClick={() => {
+                        this.props.addCallback(
+                            this.state.type,
+                            this.state.x,
+                            this.state.y,
+                            this.state.vx,
+                            this.state.vy,
+                            this.state.M,
+                            this.state.tag,
+                            this.state.color
+                        );
+                    }}
+                >
+                    追加
+                </button>
+                <button
+                    style={{ width: "100%", margin: "5px 0" }}
+                    onClick={() => {
+                        this.props.addCallback(
+                            this.state.type,
+                            this.state.x,
+                            this.state.y,
+                            this.state.vx,
+                            this.state.vy,
+                            this.state.M,
+                            this.state.tag,
+                            this.state.color
+                        );
+                        this.props.cancelCallback();
+                    }}
+                >
+                    追加して閉じる
+                </button>
+                <button
+                    style={{ width: "100%", margin: "5px 0"}}
+                    onClick={this.props.cancelCallback}
+                >
+                    閉じる
+                </button>
             </Html>
         );
     }
