@@ -10,7 +10,7 @@ export default class ObjectAdder extends React.Component<any, any> {
             vy: 1.3,
             M: 1.0,
             tag: "Planet",
-            color: "#ff6666"
+            color: "#ff0000"
         },
         satelite: {
             x: 20.0,
@@ -19,7 +19,7 @@ export default class ObjectAdder extends React.Component<any, any> {
             vy: 1.7,
             M: 100.0,
             tag: "Satelite",
-            color: "#66ff66"
+            color: "#00ff00"
         },
         comet: {
             x: -5.0,
@@ -28,7 +28,7 @@ export default class ObjectAdder extends React.Component<any, any> {
             vy: 1.2,
             M: 1.0,
             tag: "Comet",
-            color: "#6666ff"
+            color: "#0000ff"
         }
     }
 
