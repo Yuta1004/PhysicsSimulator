@@ -178,16 +178,31 @@ export default class Controller extends React.Component<any, any> {
         }
     }
 
-    private addSimulator() {
+    private addSimulator(type: string, x: number, y: number, vx: number, vy: number, M: number, tag: string, color: string) {
         init().then((instance: InitOutput) => {
-            const simulator = new SimulatorAccessor(
-                SimulatorFactory.new_planet(10, 500, 0.5, 0.0, 1.2, 1.0, this.state.dt),
-                instance.memory,
-                3,
-                () => { console.log("Now Loading..."); },
-                () => { console.log("Loading Completed!"); }
+            const blocks_num = 10;
+            const steps_num = 600;
+
+            var simulator;
+            if (type === "planet") {
+                simulator = SimulatorFactory.new_planet(blocks_num, steps_num, x, y, vy, M, this.state.dt);
+            } else if (type === "satelite") {
+                simulator = SimulatorFactory.new_satelite(blocks_num, steps_num, x, y, vx, vy, M, this.state.dt);
+            } else {
+                simulator = SimulatorFactory.new_comet(blocks_num, steps_num, x, y, vy, M, this.state.dt);
+            }
+
+            this.props.addSimulatorCallback(
+                new SimulatorAccessor(
+                    simulator,
+                    instance.memory,
+                    3,
+                    () => { console.log("Now Loading..."); },
+                    () => { console.log("Loading Completed!"); }
+                ),
+                tag,
+                color
             );
-            this.props.addSimulatorCallback(simulator, "TEST", "#ff0000");
         });
     }
 }
