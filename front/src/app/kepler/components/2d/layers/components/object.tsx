@@ -22,7 +22,7 @@ export default class Object extends React.Component<any, any> {
                         x={pos[0]*30}
                         y={-pos[1]*30}
                         radius={5}
-                        fill={this.state.color}
+                        fill={this.state.color+"44"}
                     />
                 )}
                 <Circle
