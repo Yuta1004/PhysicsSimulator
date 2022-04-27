@@ -14,7 +14,7 @@ export default class Controller extends React.Component<any, any> {
         this.state = {
             intervalID: -1,
             playIcon: <IoPlaySharp size={20}/>,
-            dt: 1.0,
+            dt: 0.2,
             speed: 1.0,
             started: false,
             panelVisibility: "visible",
@@ -70,6 +70,7 @@ export default class Controller extends React.Component<any, any> {
                             min={0.01}
                             max={2.0}
                             step={0.01}
+                            value={this.state.dt}
                             onChange={(e: any) => { this.setState({ dt: e.target.value }); }}
                             disabled={this.state.started}
                         />
@@ -84,8 +85,9 @@ export default class Controller extends React.Component<any, any> {
                             style={{ width: "50%", position: "absolute", left: "40%" }}
                             type="range"
                             min={0.1}
-                            max={2.0}
+                            max={4.0}
                             step={0.1}
+                            value={this.state.speed}
                             onChange={(e:any) => {
                                 this.setState({ speed: e.target.value });
                                 if (this.state.intervalID !== -1) {
