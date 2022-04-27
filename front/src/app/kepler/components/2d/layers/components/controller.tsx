@@ -97,7 +97,17 @@ export default class Controller extends React.Component<any, any> {
                         margin: "10px auto"
                     }}>
                         <button style={{ width: "100%", margin: "0 10px" }} onClick={this.addSimulator}>ADD</button>
-                        <button style={{ width: "100%", margin: "0 10px" }} onClick={this.addSimulator}>RESET</button>
+                        <button
+                            style={{ width: "100%", margin: "0 10px" }}
+                            onClick={() => {
+                                this.props.resetCallback();
+                                if (this.state.intervalID !== -1) {
+                                    this.resumeOrStopSimulate();
+                                }
+                            }}
+                        >
+                            リセット
+                        </button>
                     </div>
                 </Html>
                 <Html

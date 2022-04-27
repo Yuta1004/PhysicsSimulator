@@ -14,6 +14,7 @@ export default class Objects extends React.Component<any, any> {
             _dummy: 0
         };
 
+        this.reset = this.reset.bind(this);
         this.prev = this.prev.bind(this);
         this.next = this.next.bind(this);
         this.addSimulator = this.addSimulator.bind(this);
@@ -26,6 +27,7 @@ export default class Objects extends React.Component<any, any> {
                     object[1]
                 )}
                 <Controller
+                    resetCallback={this.reset}
                     prevCallback={this.prev}
                     nextCallback={this.next}
                     addSimulatorCallback={this.addSimulator}
@@ -48,6 +50,10 @@ export default class Objects extends React.Component<any, any> {
         />;
         objects.push([simulator, object, objectRef]);
         this.setState({ objects: objects });
+    }
+
+    public reset() {
+        this.setState({ objects: [] })
     }
 
     public prev() {
