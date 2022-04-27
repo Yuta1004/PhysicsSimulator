@@ -1,6 +1,7 @@
 import React from "react";
 import { Group } from "react-konva";
 import { Html } from "react-konva-utils";
+import { IoPlaySharp, IoPlayForwardSharp, IoPlayBackSharp, IoStopSharp } from "react-icons/io5";
 
 import SimulatorAccessor from "../../../../../memory";
 import init, { InitOutput, SimulatorFactory } from "@kepler-core/kepler-core";
@@ -11,6 +12,7 @@ export default class Controller extends React.Component<any, any> {
 
         this.state = {
             intervalID: -1,
+            playIcon: <IoPlaySharp size={20}/>
         };
 
         this.resumeOrStopSimulate = this.resumeOrStopSimulate.bind(this);
@@ -37,11 +39,17 @@ export default class Controller extends React.Component<any, any> {
                     <div style={{
                         display: "flex",
                         width: "100%",
-                        margin: "10px auto",
+                        margin: "0 auto",
                     }}>
-                        <button style={{ margin: "0 10px", padding: "20px" }} onClick={this.props.prevCallback}>PREV</button>
-                        <button style={{ margin: "0 10px", padding: "20px" }} onClick={this.resumeOrStopSimulate}>RESUME</button>
-                        <button style={{ margin: "0 10px", padding: "20px" }} onClick={this.props.nextCallback}>NEXT</button>
+                        <button style={{ margin: "0 10px", padding: "10px 20px" }} onClick={this.props.prevCallback}>
+                            <IoPlayBackSharp size={20}/>
+                        </button>
+                        <button style={{ margin: "0 10px", padding: "10px 20px" }} onClick={this.resumeOrStopSimulate}>
+                            {this.state.playIcon}
+                        </button>
+                        <button style={{ margin: "0 10px", padding: "10px 20px" }} onClick={this.props.nextCallback}>
+                            <IoPlayForwardSharp size={20}/>
+                        </button>
                     </div>
                     <div style={{
                         display: "flex",
@@ -97,10 +105,16 @@ export default class Controller extends React.Component<any, any> {
             const intervalID = setInterval(() => {
                 this.props.nextCallback();
             }, 500);
-            this.setState({ intervalID: intervalID });
+            this.setState({
+                intervalID: intervalID,
+                playIcon: <IoStopSharp size={20}/>
+            });
         } else {
             clearInterval(this.state.intervalID);
-            this.setState({ intervalID: -1 });
+            this.setState({
+                intervalID: -1,
+                playIcon: <IoPlaySharp size={20}/>
+            });
         }
     }
 
