@@ -14,7 +14,8 @@ export default class Controller extends React.Component<any, any> {
             intervalID: -1,
             playIcon: <IoPlaySharp size={20}/>,
             dt: 1.0,
-            speed: 1.0
+            speed: 1.0,
+            panelVisible: "visible"
         };
 
         this.resumeOrStopSimulate = this.resumeOrStopSimulate.bind(this);
@@ -36,7 +37,8 @@ export default class Controller extends React.Component<any, any> {
                         right: "50%",
                         transform: "translateX(-50%) translateY(-50%)",
                         bottom: "-5%",
-                        padding: "15px"
+                        padding: "15px",
+                        visibility: this.state.panelVisible
                 }}}>
                     <div style={{
                         display: "flex",
@@ -114,8 +116,16 @@ export default class Controller extends React.Component<any, any> {
                         width: "100%",
                         margin: "0auto"
                     }}>
-                        <input type="checkbox"/>
-                        Display Control Panel
+                        <input
+                            type="checkbox"
+                            checked={this.state.panelVisible === "visible"}
+                            onChange={(e: any) => {
+                                this.setState({
+                                    panelVisible: e.target.checked ? "visible" : "hidden"  
+                                });
+                            }}
+                        />
+                        コントロールパネルを表示する
                     </div>
                 </Html>
             </Group>
