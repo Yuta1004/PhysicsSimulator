@@ -103,7 +103,7 @@ export default class Settings extends React.Component<any, any> {
                         style={{ width: "100%", margin: "10px 0" }}
                         onClick={this.applySettings}
                     >
-                        適用
+                        適用(※以降の追加より)
                     </button>
                 </div> 
             </div>
