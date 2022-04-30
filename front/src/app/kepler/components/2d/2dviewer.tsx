@@ -31,6 +31,7 @@ export default class Viewer2D extends React.Component<any, any> {
             stepsNum: 600,
             loadBlocksNum: 3,
             viewHistoriesNum: 50,
+            settingsUIVisibility: "hidden",
             _dummy: 0
         };
 
@@ -74,39 +75,41 @@ export default class Viewer2D extends React.Component<any, any> {
                 }}>
                     KEPLER☆
                 </h1>
+                <div
+                    style={{
+                        position: "absolute",
+                        top: "0",
+                        right: "0",
+                        margin: "20px"
+                }}>
+                    <button style={{ margin: "0 10px", borderRadius: "50px" }}>
+                        <FiSettings
+                            color="#000a"
+                            size={50}
+                            onClick={() => {
+                                this.setState({
+                                    settingsUIVisibility: this.state.settingsUIVisibility === "visible" ? "hidden" : "visible"
+                                })
+                            }}
+                        />
+                    </button>
+                </div>
                 <Settings
                     style={{
                         position: "absolute",
                         top: "0",
                         right: "0",
                         margin: "20px 40px",
-                        width: "30%"
+                        width: "30%",
+                        visibility: this.state.settingsUIVisibility
                     }}
                     blocksNum={this.state.blocksNum}
                     stepsNum={this.state.stepsNum}
                     loadBlocksNum={this.state.loadBlocksNum}
                     viewHistoriesNum={this.state.viewHistoriesNum}
                     updateCallback={this.updateSettings}
+                    cancelCallback={() => { this.setState({ settingsUIVisibility: "hidden" }); }}
                 />
-                <div
-                    style={{
-                        position: "absolute",
-                        bottom: "0",
-                        right: "0",
-                        margin: "20px"
-                    }}
-                >
-                    <BsImages
-                        style={{ margin: "0 10px" }}
-                        color="#000a"
-                        size={50}
-                    />
-                    <FiSettings
-                        style={{ margin: "0 10px" }}
-                        color="#000a"
-                        size={50}
-                    />
-                </div>
             </div>
         );
     }

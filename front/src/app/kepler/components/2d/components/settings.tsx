@@ -23,7 +23,7 @@ export default class Settings extends React.Component<any, any> {
                     borderRadius: "30px",
                     width: "100%",
                     padding: "5px 15px",
-                    background: "#cccb"
+                    background: "#ccc"
                 }}>
                     <h3>設定</h3>
                     <h4>描画設定</h4>
@@ -99,12 +99,24 @@ export default class Settings extends React.Component<any, any> {
                             onChange={this.onValueChange}
                         />
                     </div>
-                    <button
-                        style={{ width: "100%", margin: "10px 0" }}
-                        onClick={this.applySettings}
-                    >
-                        適用(※以降の追加より)
-                    </button>
+                    <div style={{
+                            display: "flex",
+                            width: "90%",
+                            margin: "15px auto"
+                    }}>
+                        <button
+                            style={{ width: "100%", margin: "0 10px" }}
+                            onClick={this.applySettings}
+                        >
+                            適用(※以降の追加より)
+                        </button>
+                        <button
+                            style={{ width: "100%", margin: "0 10px" }}
+                            onClick={this.props.cancelCallback}
+                        >
+                            閉じる
+                        </button>
+                    </div>
                 </div> 
             </div>
         );
