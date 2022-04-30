@@ -55,7 +55,7 @@ export default class ObjectAdder extends React.Component<any, any> {
             <Html transform={false}>
                 <div
                     style={{
-                    background: "#cccb",
+                    background: "#ccc",
                     border: "1px solid black",
                     borderRadius: "15px",
                     width: "fit-content",
