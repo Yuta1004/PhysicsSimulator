@@ -2,7 +2,7 @@ import React from "react";
 import { Stage } from "react-konva";
 
 import Background from "./layers/background";
-import Objects from "./layers/objects";
+import Environment from "./layers/environment";
 
 export default class Viewer2D extends React.Component<any, any> {
     constructor(props: any) {
@@ -30,7 +30,7 @@ export default class Viewer2D extends React.Component<any, any> {
                 draggable
             >
                 <Background/>
-                <Objects memory={this.props.memory}/>
+                <Environment memory={this.props.memory}/>
             </Stage>
         );
     }

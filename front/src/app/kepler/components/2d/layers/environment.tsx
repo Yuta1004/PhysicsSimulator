@@ -5,7 +5,7 @@ import SimulatorAccessor from "../../../../memory";
 import Object from "./components/object";
 import Controller from "./components/controller";
 
-export default class Objects extends React.Component<any, any> {
+export default class Environment extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         
