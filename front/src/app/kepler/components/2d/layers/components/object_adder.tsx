@@ -52,12 +52,12 @@ export default class ObjectAdder extends React.Component<any, any> {
 
     render() {
         return (
-            <Html
-                transform={false}
-                divProps={{ style: {
-                    background: "#cccf",
+            <Html transform={false}>
+                <div
+                    style={{
+                    background: "#cccb",
                     border: "1px solid black",
-                    ["border-radius"]: "15px",
+                    borderRadius: "15px",
                     width: "fit-content",
                     position: "absolute",
                     left: "50%",
@@ -65,166 +65,167 @@ export default class ObjectAdder extends React.Component<any, any> {
                     transform: "translateX(-50%) translateY(-50%)",
                     top: "40%",
                     padding: "15px",
-                    ["text-align"]: "center",
+                    textAlign: "center",
                     visibility: this.props.visibility
-            }}}>
-                <h3>オブジェクト設定</h3>
-                <div style={{
-                    display: "flex",
-                    width: "90%",
-                    margin: "10px auto",
                 }}>
-                    種類:
-                    <select
-                        style={{ width: "60%", position: "absolute", left: "30%" }}
-                        onChange={this.onTypeChange}
-                        value={this.state.type}
+                    <h3>オブジェクト設定</h3>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        種類:
+                        <select
+                            style={{ width: "60%", position: "absolute", left: "30%" }}
+                            onChange={this.onTypeChange}
+                            value={this.state.type}
+                        >
+                            <option value="planet">惑星</option>
+                            <option value="satelite">人工衛星</option>
+                            <option value="comet">彗星</option>
+                        </select>
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        X:
+                        <input
+                            style={{ width: "45%", position: "absolute", left: "40%" }}
+                            type="value"
+                            name="x"
+                            value={this.state.x}
+                            onChange={this.onValueChange}
+                        />
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        Y:
+                        <input
+                            style={{ width: "45%", position: "absolute", left: "40%" }}
+                            type="value"
+                            name="y"
+                            value={this.state.y}
+                            onChange={this.onValueChange}
+                        />
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        Vx:
+                        <input
+                            style={{ width: "45%", position: "absolute", left: "40%" }}
+                            type="value"
+                            name="vx"
+                            value={this.state.vx}
+                            onChange={this.onValueChange}
+                        />
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        Vy:
+                        <input
+                            style={{ width: "45%", position: "absolute", left: "40%" }}
+                            type="value"
+                            name="vy"
+                            value={this.state.vy}
+                            onChange={this.onValueChange}
+                        />
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        M:
+                        <input
+                            style={{ width: "45%", position: "absolute", left: "40%" }}
+                            type="value"
+                            name="M"
+                            value={this.state.M}
+                            onChange={this.onValueChange}
+                        />
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "10px auto",
+                    }}>
+                        タグ:
+                        <input
+                            style={{ width: "45%", position: "absolute", left: "40%" }}
+                            type="text"
+                            name="tag"
+                            value={this.state.tag}
+                            onChange={this.onValueChange}
+                        />
+                    </div>
+                    <div style={{
+                        display: "flex",
+                        width: "90%",
+                        margin: "15px auto",
+                    }}>
+                        表示色:
+                        <input
+                            style={{ width: "45%", position: "absolute", left: "40%" }}
+                            type="color"
+                            name="color"
+                            value={this.state.color}
+                            onChange={this.onValueChange}
+                        />
+                    </div>
+                    <hr style={{ border: "1px dashed #222b", margin: "20px 0 10px 0" }}/>
+                    <button
+                        style={{ width: "100%", margin: "5px 0" }}
+                        onClick={() => {
+                            this.props.addCallback(
+                                this.state.type,
+                                this.state.x,
+                                this.state.y,
+                                this.state.vx,
+                                this.state.vy,
+                                this.state.M,
+                                this.state.tag,
+                                this.state.color
+                            );
+                        }}
                     >
-                        <option value="planet">惑星</option>
-                        <option value="satelite">人工衛星</option>
-                        <option value="comet">彗星</option>
-                    </select>
+                        追加
+                    </button>
+                    <button
+                        style={{ width: "100%", margin: "5px 0" }}
+                        onClick={() => {
+                            this.props.addCallback(
+                                this.state.type,
+                                this.state.x,
+                                this.state.y,
+                                this.state.vx,
+                                this.state.vy,
+                                this.state.M,
+                                this.state.tag,
+                                this.state.color
+                            );
+                            this.props.cancelCallback();
+                        }}
+                    >
+                        追加して閉じる
+                    </button>
+                    <button
+                        style={{ width: "100%", margin: "5px 0"}}
+                        onClick={this.props.cancelCallback}
+                    >
+                        閉じる
+                    </button>
                 </div>
-                <div style={{
-                    display: "flex",
-                    width: "90%",
-                    margin: "10px auto",
-                }}>
-                    X:
-                    <input
-                        style={{ width: "45%", position: "absolute", left: "40%" }}
-                        type="value"
-                        name="x"
-                        value={this.state.x}
-                        onChange={this.onValueChange}
-                    />
-                </div>
-                <div style={{
-                    display: "flex",
-                    width: "90%",
-                    margin: "10px auto",
-                }}>
-                    Y:
-                    <input
-                        style={{ width: "45%", position: "absolute", left: "40%" }}
-                        type="value"
-                        name="y"
-                        value={this.state.y}
-                        onChange={this.onValueChange}
-                    />
-                </div>
-                <div style={{
-                    display: "flex",
-                    width: "90%",
-                    margin: "10px auto",
-                }}>
-                    Vx:
-                    <input
-                        style={{ width: "45%", position: "absolute", left: "40%" }}
-                        type="value"
-                        name="vx"
-                        value={this.state.vx}
-                        onChange={this.onValueChange}
-                    />
-                </div>
-                <div style={{
-                    display: "flex",
-                    width: "90%",
-                    margin: "10px auto",
-                }}>
-                    Vy:
-                    <input
-                        style={{ width: "45%", position: "absolute", left: "40%" }}
-                        type="value"
-                        name="vy"
-                        value={this.state.vy}
-                        onChange={this.onValueChange}
-                    />
-                </div>
-                <div style={{
-                    display: "flex",
-                    width: "90%",
-                    margin: "10px auto",
-                }}>
-                    M:
-                    <input
-                        style={{ width: "45%", position: "absolute", left: "40%" }}
-                        type="value"
-                        name="M"
-                        value={this.state.M}
-                        onChange={this.onValueChange}
-                    />
-                </div>
-                <div style={{
-                    display: "flex",
-                    width: "90%",
-                    margin: "10px auto",
-                }}>
-                    タグ:
-                    <input
-                        style={{ width: "45%", position: "absolute", left: "40%" }}
-                        type="text"
-                        name="tag"
-                        value={this.state.tag}
-                        onChange={this.onValueChange}
-                    />
-                </div>
-                <div style={{
-                    display: "flex",
-                    width: "90%",
-                    margin: "15px auto",
-                }}>
-                    表示色:
-                    <input
-                        style={{ width: "45%", position: "absolute", left: "40%" }}
-                        type="color"
-                        name="color"
-                        value={this.state.color}
-                        onChange={this.onValueChange}
-                    />
-                </div>
-                <hr style={{ margin: "20px 0 10px 0" }}/>
-                <button
-                    style={{ width: "100%", margin: "5px 0" }}
-                    onClick={() => {
-                        this.props.addCallback(
-                            this.state.type,
-                            this.state.x,
-                            this.state.y,
-                            this.state.vx,
-                            this.state.vy,
-                            this.state.M,
-                            this.state.tag,
-                            this.state.color
-                        );
-                    }}
-                >
-                    追加
-                </button>
-                <button
-                    style={{ width: "100%", margin: "5px 0" }}
-                    onClick={() => {
-                        this.props.addCallback(
-                            this.state.type,
-                            this.state.x,
-                            this.state.y,
-                            this.state.vx,
-                            this.state.vy,
-                            this.state.M,
-                            this.state.tag,
-                            this.state.color
-                        );
-                        this.props.cancelCallback();
-                    }}
-                >
-                    追加して閉じる
-                </button>
-                <button
-                    style={{ width: "100%", margin: "5px 0"}}
-                    onClick={this.props.cancelCallback}
-                >
-                    閉じる
-                </button>
             </Html>
         );
     }

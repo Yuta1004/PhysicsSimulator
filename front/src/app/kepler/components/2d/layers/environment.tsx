@@ -5,7 +5,7 @@ import SimulatorAccessor from "../../../../memory";
 import Object from "./components/object";
 import Controller from "./components/controller";
 
-export default class Objects extends React.Component<any, any> {
+export default class Environment extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
         
@@ -27,6 +27,7 @@ export default class Objects extends React.Component<any, any> {
                     object[1]
                 )}
                 <Controller
+                    memory={this.props.memory}
                     resetCallback={this.reset}
                     prevCallback={this.prev}
                     nextCallback={this.next}
@@ -41,7 +42,7 @@ export default class Objects extends React.Component<any, any> {
         const value = simulator.getValue();
         const objectRef = React.createRef<Object>();
         const object = <Object
-            key={name}
+            key={name+Math.random()}
             name={name}
             color={color}
             x={value[0]}
