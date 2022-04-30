@@ -1,0 +1,225 @@
+  .button {/*　 月      */
+  position:relative;
+  /* bottom: */
+  top: 30px;/* 下に動かす       */
+  right:350px;/* 左に動かす       */
+
+ /* right: */
+  display       : inline-block;
+  border-radius : 10%;          /* 角丸       */
+  font-size     : 15pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 10px 24px;   /* 余白       */
+  background    : #000066;     /* 背景色     */
+  color         : #ffffff;     /* 文字色     */
+  line-height   : 0.5em;         /* 1行の高さ  */
+  transition    : .1s;         /* なめらか変化 */
+  border        : 2px solid #000066;    /* 枠の指定 */
+}
+.button:hover {
+  box-shadow    : none;        /* カーソル時の影消去 */
+  color         : #000066;     /* 背景色     */
+  background    : #ffffff;     /* 文字色     */
+}
+
+.button2 {/*　 木星      　　　　　　　　　　　　　　　　　　　　　　　　　　*/
+  position: relative;
+  /* bottom: */
+  top: 20px;/* 下に動かす       */
+  right:350px;/* 左に動かす       */
+ /* right: */
+  display       : inline-block;
+  border-radius : 10%;          /* 角丸       */
+  font-size     : 15pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 10px 24px;   /* 余白       */
+  background    : #000066;     /* 背景色     */
+  color         : #ffffff;     /* 文字色     */
+  line-height   : 0.5em;         /* 1行の高さ  */
+  transition    : .1s;         /* なめらか変化 */
+  border        : 2px solid #000066;    /* 枠の指定 */
+}
+.button2:hover {
+  box-shadow    : none;        /* カーソル時の影消去 */
+  color         : #000066;     /* 背景色     */
+  background    : #ffffff;     /* 文字色     */
+}
+.button3 {/*　 土星     　　　　　　　　　　　　　　　　　　　　　　　　　　　　 */
+  position: relative;
+  /* bottom: */
+  top: 30px;/* 下に動かす       */
+  right:350px;/* 左に動かす       */
+ /* right: */
+  display       : inline-block;
+  border-radius : 10%;          /* 角丸       */
+  font-size     : 15pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 10px 24px;   /* 余白       */
+  background    : #000066;     /* 背景色     */
+  color         : #ffffff;     /* 文字色     */
+  line-height   : 0.5em;         /* 1行の高さ  */
+  transition    : .1s;         /* なめらか変化 */
+  border        : 2px solid #000066;    /* 枠の指定 */
+}
+.button3:hover {
+  box-shadow    : none;        /* カーソル時の影消去 */
+  color         : #000066;     /* 背景色     */
+  background    : #ffffff;     /* 文字色     */
+}
+.button4 {/*　 メシエ天体      　　　　　　　　　　　　　　　　　　　　　　　　　　*/
+  position: relative;
+  /* bottom: */
+  top: 30px;/* 下に動かす       */
+  right:350px;/* 左に動かす       */
+ /* right: */
+  display       : inline-block;
+  border-radius : 10%;          /* 角丸       */
+  font-size     : 15pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 10px 24px;   /* 余白       */
+  background    : #000066;     /* 背景色     */
+  color         : #ffffff;     /* 文字色     */
+  line-height   : 0.5em;         /* 1行の高さ  */
+  transition    : .1s;         /* なめらか変化 */
+  border        : 2px solid #000066;    /* 枠の指定 */
+}
+.button4:hover {
+  box-shadow    : none;        /* カーソル時の影消去 */
+  color         : #000066;     /* 背景色     */
+  background    : #ffffff;     /* 文字色     */
+}
+.button5 {/*　 その他     　　　　　　　　　　　　　　　　　　　　　　　　　　*/
+  position: relative;
+  /* bottom: */
+  top: -10px;/* 下に動かす       */
+  left:960px;/* 右に動かす       */
+ /* right: */
+  display       : inline-block;
+  border-radius : 10%;          /* 角丸       */
+  font-size     : 15pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 10px 24px;   /* 余白       */
+  background    : #000066;     /* 背景色     */
+  color         : #ffffff;     /* 文字色     */
+  line-height   : 0.5em;         /* 1行の高さ  */
+  transition    : .1s;         /* なめらか変化 */
+  border        : 2px solid #000066;    /* 枠の指定 */
+}
+.button5:hover {
+  box-shadow    : none;        /* カーソル時の影消去 */
+  color         : #000066;     /* 背景色     */
+  background    : #ffffff;     /* 文字色     */
+}
+
+
+
+/* メニューバー   　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　*/
+.nav ul li{
+  float: left;
+  width: 120px;
+  height: 50px;
+}
+
+.nav ul{
+  list-style-type: none;
+}
+
+.nav{
+  background-color: rgba(0, 12, 82, 0.973);
+  height: 50px;
+  width: 250%;
+}
+
+.nav a{
+  text-decoration: none;
+  color: white;
+  display: block;
+  padding: 10%;
+}
+
+.nav :hover{
+  background: rgb(97, 110, 168);
+}
+
+
+
+.menu{
+  position: fixed;
+  margin-top: -25px;/*メニューバーの頂点を合わす*/
+  }
+
+body{
+  display: inline;
+  margin: 50px;
+  padding: 0px;
+}
+
+
+.head{
+  margin-top: 0px;/*メニューバーの頂点を合わす*/
+  
+}
+
+/*                         メニューバー2                              */
+.nav2 ul li{
+  float: left;
+  width: 120px;
+  height: 50px;
+}
+
+.nav2 ul{
+  list-style-type: none;
+}
+
+.nav2{
+  background-color: rgba(0, 0, 0, 0.493);
+  height: 50px;
+  width: 250%;
+}
+
+.nav2 a{
+  text-decoration: none;
+  color: white;
+  display: block;
+  padding: 10%;
+}
+
+.nav2 :hover{
+  background: rgb(75, 75, 75);
+}
+
+
+
+.menu2{
+  position: fixed;
+  margin-top: -40px;/*メニューバーの頂点を合わす*/
+  }
+
+body2{
+  display: inline;
+  margin: 50px;
+  padding: 0px;
+}
+
+
+.head2{
+  margin-top: 0px;/*メニューバーの頂点を合わす*/
+  
+}
+.image-vw {       /*画面サイズを自動調節　　　　　　　　　　　　　　　　　　*/
+  justify-content: center;
+  align-items: center;
+  width : 50vw ; 
+  max-width: 100%;
+  width: 35%;    /* 横幅を割合で指定 */
+  height: auto;  /* 高さは自動指定 */
+  padding: 20px 30px;     /* 余白指定  上下　左右*/
+  
+}
+
+
