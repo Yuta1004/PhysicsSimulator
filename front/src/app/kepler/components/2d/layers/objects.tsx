@@ -41,7 +41,7 @@ export default class Objects extends React.Component<any, any> {
         const value = simulator.getValue();
         const objectRef = React.createRef<Object>();
         const object = <Object
-            key={name}
+            key={name+Math.random()}
             name={name}
             color={color}
             x={value[0]}
