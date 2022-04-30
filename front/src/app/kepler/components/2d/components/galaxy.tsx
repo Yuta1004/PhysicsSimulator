@@ -25,7 +25,7 @@ export default class Galaxy extends React.Component<any, any> {
                         <button
                             style={{ width: "100%", margin: "0 10px" }}
                             onClick={() => {
-                                window.open("kepler/galaxy", '_blank', 'noopener,noreferrer');
+                                window.open(window.location.href+"kepler/galaxy", '_blank', 'noopener,noreferrer');
                             }}
                         >
                             開く
