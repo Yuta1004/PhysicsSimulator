@@ -1,0 +1,21 @@
+version: "3"
+services:
+    proxy:
+        image: nginx:1.19.1-alpine
+        environment:
+            TZ: Asia/Tokyo
+        volumes:
+            - ./proxy/nginx.conf:/etc/nginx/nginx.conf:ro
+            - ./proxy/static:/usr/share/nginx/html/sites:ro
+        ports:
+            - $PORT:80
+        depends_on:
+            - front
+    front:
+        build:
+            context: ./
+            dockerfile: ./front/Dockerfile
+        environment:
+            TZ: Asia/Tokyo
+        command: npm start
+
