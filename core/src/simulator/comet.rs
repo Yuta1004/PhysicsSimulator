@@ -1,25 +1,24 @@
 use super::Calculator;
 
 #[derive(Clone)]
-#[allow(non_snake_case)]
 pub struct Comet {
     x: f64,
     y: f64,
     vx: f64,
     vy: f64,
 
-    M: f64,
+    m: f64,
     dt: f64
 }
 
-#[allow(non_snake_case)]
 impl Comet {
-    pub fn new(x: f64, y: f64, vx: f64, vy: f64, M: f64, dt: f64) -> Comet {
+    pub fn new(x: f64, y: f64, vx: f64, vy: f64, m: f64, dt: f64) -> Comet {
         let radius = (x.powi(2)+y.powi(2)).sqrt();
         let vx = (1.0/radius).sqrt() * 0.5 * vx;
         let vy = (1.0/radius).sqrt() * 0.5 * vy;
+        let m = 1.0/m;
 
-        Comet { x, y, vx, vy, M, dt }
+        Comet { x, y, vx, vy, m, dt }
     }
 }
 
@@ -30,8 +29,8 @@ impl Calculator for Comet {
 
     fn update(&mut self) {
         let radius = (self.x.powi(2)+self.y.powi(2)).sqrt();
-        self.vx -= (self.dt*self.M*self.x) / radius.powi(3);
-        self.vy -= (self.dt*self.M*self.y) / radius.powi(3);
+        self.vx -= (self.dt*self.m*self.x) / radius.powi(3);
+        self.vy -= (self.dt*self.m*self.y) / radius.powi(3);
         self.x += self.dt*self.vx;
         self.y += self.dt*self.vy;
     }
