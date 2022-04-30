@@ -185,24 +185,20 @@ export default class Controller extends React.Component<any, any> {
     }
 
     private addSimulator(type: string, x: number, y: number, vx: number, vy: number, m: number, tag: string, color: string) {
-        const blocks_num = 10;
-        const steps_num = 600;
-        const load_blocks = 3;
-
         var simulator;
         if (type === "planet") {
-            simulator = SimulatorFactory.new_planet(blocks_num, steps_num, x, y, vx, vy, m, this.state.dt);
+            simulator = SimulatorFactory.new_planet(this.props.blocksNum, this.props.stepsNum, x, y, vx, vy, m, this.state.dt);
         } else if (type === "satelite") {
-            simulator = SimulatorFactory.new_satelite(blocks_num, steps_num, x, y, vx, vy, m, this.state.dt);
+            simulator = SimulatorFactory.new_satelite(this.props.blocksNum, this.props.stepsNum, x, y, vx, vy, m, this.state.dt);
         } else {
-            simulator = SimulatorFactory.new_comet(blocks_num, steps_num, x, y, vx, vy, m, this.state.dt);
+            simulator = SimulatorFactory.new_comet(this.props.blocksNum, this.props.stepsNum, x, y, vx, vy, m, this.state.dt);
         }
 
         this.props.addSimulatorCallback(
             new SimulatorAccessor(
                 simulator,
                 this.props.memory,
-                load_blocks,
+                this.props.loadBlocksNum,
                 this.loadingStart,
                 this.loadingFinish
             ),

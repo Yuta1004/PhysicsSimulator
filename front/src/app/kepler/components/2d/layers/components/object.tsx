@@ -57,7 +57,7 @@ export default class Object extends React.Component<any, any> {
     public update(x: number, y: number) {
         const history = this.state.history;
         history.push([this.state.x, this.state.y]);
-        if (history.length > 50) {
+        if (this.props.viewHistoriesNum !== -1 && history.length > this.props.viewHistoriesNum) {
             history.shift();
         }
         this.setState({
