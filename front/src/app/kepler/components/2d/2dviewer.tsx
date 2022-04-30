@@ -30,7 +30,7 @@ export default class Viewer2D extends React.Component<any, any> {
                 draggable
             >
                 <Background/>
-                <Objects/>
+                <Objects memory={this.props.memory}/>
             </Stage>
         );
     }

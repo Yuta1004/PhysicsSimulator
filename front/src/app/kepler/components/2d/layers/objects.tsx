@@ -27,6 +27,7 @@ export default class Objects extends React.Component<any, any> {
                     object[1]
                 )}
                 <Controller
+                    memory={this.props.memory}
                     resetCallback={this.reset}
                     prevCallback={this.prev}
                     nextCallback={this.next}

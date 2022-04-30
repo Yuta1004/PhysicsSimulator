@@ -23,6 +23,8 @@ export default class Controller extends React.Component<any, any> {
 
         this.resumeOrStopSimulate = this.resumeOrStopSimulate.bind(this);
         this.addSimulator = this.addSimulator.bind(this);
+        this.loadingStart = this.loadingStart.bind(this);
+        this.loadingFinish = this.loadingFinish.bind(this);
     }
 
     render() {
@@ -161,6 +163,33 @@ export default class Controller extends React.Component<any, any> {
         );
     }
 
+    private addSimulator(type: string, x: number, y: number, vx: number, vy: number, M: number, tag: string, color: string) {
+        const blocks_num = 10;
+        const steps_num = 600;
+        const load_blocks = 3;
+
+        var simulator;
+        if (type === "planet") {
+            simulator = SimulatorFactory.new_planet(blocks_num, steps_num, x, y, vy, M, this.state.dt);
+        } else if (type === "satelite") {
+            simulator = SimulatorFactory.new_satelite(blocks_num, steps_num, x, y, vx, vy, M, this.state.dt);
+        } else {
+            simulator = SimulatorFactory.new_comet(blocks_num, steps_num, x, y, vy, M, this.state.dt);
+        }
+
+        this.props.addSimulatorCallback(
+            new SimulatorAccessor(
+                simulator,
+                this.props.memory,
+                load_blocks,
+                this.loadingStart,
+                this.loadingFinish
+            ),
+            tag,
+            color
+        );
+    }
+
     private resumeOrStopSimulate() {
         if (this.state.intervalID === -1) {
             const intervalID = setInterval(() => {
@@ -180,31 +209,19 @@ export default class Controller extends React.Component<any, any> {
         }
     }
 
-    private addSimulator(type: string, x: number, y: number, vx: number, vy: number, M: number, tag: string, color: string) {
-        init().then((instance: InitOutput) => {
-            const blocks_num = 10;
-            const steps_num = 600;
+    private loadingStart() {
+        if (this.state.intervalID !== -1) {
+            clearInterval(this.state.intervalID);
+            this.setState({ intervalID: -1 });
+        }
+    }
 
-            var simulator;
-            if (type === "planet") {
-                simulator = SimulatorFactory.new_planet(blocks_num, steps_num, x, y, vy, M, this.state.dt);
-            } else if (type === "satelite") {
-                simulator = SimulatorFactory.new_satelite(blocks_num, steps_num, x, y, vx, vy, M, this.state.dt);
-            } else {
-                simulator = SimulatorFactory.new_comet(blocks_num, steps_num, x, y, vy, M, this.state.dt);
-            }
-
-            this.props.addSimulatorCallback(
-                new SimulatorAccessor(
-                    simulator,
-                    instance.memory,
-                    3,
-                    () => { console.log("Now Loading..."); },
-                    () => { console.log("Loading Completed!"); }
-                ),
-                tag,
-                color
-            );
-        });
+    private loadingFinish() {
+        if (this.state.intervalID === -1) {
+            const intervalID = setInterval(() => {
+                this.props.nextCallback();
+            }, 100/this.state.speed);
+            this.setState({ intervalID: intervalID });
+        }
     }
 }
