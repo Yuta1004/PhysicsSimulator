@@ -12,16 +12,31 @@ export default class Galaxy extends React.Component<any, any> {
                     border: "1px solid black",
                     borderRadius: "30px",
                     width: "100%",
-                    padding: "15px",
+                    padding: "5px 15px",
                     background: "#ccc"
                 }}>
-                    <h3>天体画像サイトの表示</h3>
-                    <button
-                        style={{ width: "100%" }}
-                        onClick={this.props.cancelCallback}
-                    >
-                        閉じる
-                    </button>
+                    <h3>天体画像ギャラリー</h3>
+                    <p>新しいタブを開きます</p>
+                    <div style={{
+                            display: "flex",
+                            width: "90%",
+                            margin: "15px auto"
+                    }}>
+                        <button
+                            style={{ width: "100%", margin: "0 10px" }}
+                            onClick={() => {
+                                window.open("kepler/galaxy", '_blank', 'noopener,noreferrer');
+                            }}
+                        >
+                            開く
+                        </button>
+                        <button
+                            style={{ width: "100%", margin: "0 10px" }}
+                            onClick={this.props.cancelCallback}
+                        >
+                            閉じる
+                        </button>
+                    </div>
                 </div>
             </div>
         );
