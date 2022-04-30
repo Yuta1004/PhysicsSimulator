@@ -136,5 +136,6 @@ export default class Settings extends React.Component<any, any> {
             this.state.loadBlocksNum,
             this.state.viewHistoriesNum == 301 ? -1 : this.state.viewHistoriesNum
         );
+        this.props.cancelCallback();
     }
 }
