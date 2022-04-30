@@ -25,9 +25,14 @@ export default class Viewer2D extends React.Component<any, any> {
             stageScale: 0.6,
             stageX: window.innerWidth/2,
             stageY: window.innerHeight/2,
+            blocksNum: 10,
+            stepsNum: 600,
+            loadBlocksNum: 3,
+            viewHistoriesNum: 50,
             _dummy: 0
         };
 
+        this.updateSettings = this.updateSettings.bind(this);
         this.onWheel = this.onWheel.bind(this);
         this.onDragMove = this.onDragMove.bind(this);
         this.onTouchMove = this.onTouchMove.bind(this);
@@ -53,10 +58,10 @@ export default class Viewer2D extends React.Component<any, any> {
                     <Background/>
                     <Environment
                         memory={this.props.memory}
-                        blocksNum={10}
-                        stepsNum={600}
-                        loadBlocksNum={300}
-                        viewHistoriesNum={-1}
+                        blocksNum={this.state.blocksNum}
+                        stepsNum={this.state.stepsNum}
+                        loadBlocksNum={this.state.loadBlocksNum}
+                        viewHistoriesNum={this.state.viewHistoriesNum}
                     />
                 </Stage>
                 <h1
@@ -74,10 +79,24 @@ export default class Viewer2D extends React.Component<any, any> {
                         right: "0",
                         margin: "20px 40px",
                         width: "30%"
-                    }} 
+                    }}
+                    blocksNum={this.state.blocksNum}
+                    stepsNum={this.state.stepsNum}
+                    loadBlocksNum={this.state.loadBlocksNum}
+                    viewHistoriesNum={this.state.viewHistoriesNum}
+                    updateCallback={this.updateSettings}
                 />
             </div>
         );
+    }
+
+    private updateSettings(blocksNum: number, stepsNum: number, loadBlocksNum: number, viewHistoriesNum: number) {
+        this.setState({
+            blocksNum: blocksNum,
+            stepsNum: stepsNum,
+            loadBlocksNum: loadBlocksNum,
+            viewHistoriesNum: viewHistoriesNum
+        });
     }
 
     private onDragMove() {
