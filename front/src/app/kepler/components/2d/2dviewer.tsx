@@ -6,6 +6,7 @@ import { BsImages } from "react-icons/bs";
 import Background from "./layers/background";
 import Environment from "./layers/environment";
 import Settings from "./components/settings";
+import Galaxy from "./components/galaxy";
 
 type Pos = { x: number, y: number };
 const calcDist = (pos1: Pos, pos2: Pos) => Math.pow(pos1.x-pos2.x, 2) + Math.pow(pos1.y-pos2.y, 2);
@@ -32,6 +33,7 @@ export default class Viewer2D extends React.Component<any, any> {
             loadBlocksNum: 3,
             viewHistoriesNum: 50,
             settingsUIVisibility: "hidden",
+            openGalaxyUIVisibility: "hidden",
             _dummy: 0
         };
 
@@ -83,6 +85,17 @@ export default class Viewer2D extends React.Component<any, any> {
                         margin: "20px"
                 }}>
                     <button style={{ margin: "0 10px", borderRadius: "50px" }}>
+                        <BsImages
+                            color="#000a"
+                            size={50}
+                            onClick={() => {
+                                this.setState({
+                                    openGalaxyUIVisibility: this.state.openGalaxyUIVisibility === "visible" ? "hidden" : "visible"
+                                })
+                            }}
+                        />
+                    </button>
+                    <button style={{ margin: "0 10px", borderRadius: "50px" }}>
                         <FiSettings
                             color="#000a"
                             size={50}
@@ -109,6 +122,17 @@ export default class Viewer2D extends React.Component<any, any> {
                     viewHistoriesNum={this.state.viewHistoriesNum}
                     updateCallback={this.updateSettings}
                     cancelCallback={() => { this.setState({ settingsUIVisibility: "hidden" }); }}
+                />
+                <Galaxy
+                    style={{
+                        position: "absolute",
+                        top: "0",
+                        right: "0",
+                        margin: "20px 40px",
+                        width: "30%",
+                        visibility: this.state.openGalaxyUIVisibility
+                    }}
+                    cancelCallback={() => { this.setState({ openGalaxyUIVisibility: "hidden" }); }}
                 />
             </div>
         );
