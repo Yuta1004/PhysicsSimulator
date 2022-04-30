@@ -4,6 +4,7 @@ import { Group, Text, Circle } from "react-konva";
 export default class Object extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
+
         this.state = {
             name: props.name,
             color: props.color,
@@ -11,6 +12,9 @@ export default class Object extends React.Component<any, any> {
             y: props.y,
             history: []
         };
+
+        this.reset = this.reset.bind(this);
+        this.update = this.update.bind(this);
     }
 
     render() {
@@ -40,6 +44,14 @@ export default class Object extends React.Component<any, any> {
                 />
             </Group>
         );
+    }
+
+    public reset(x: number, y: number) {
+        this.setState({
+            x: x,
+            y: y,
+            history: [[x, y]]
+        });
     }
 
     public update(x: number, y: number) {

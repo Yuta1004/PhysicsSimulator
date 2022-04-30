@@ -15,6 +15,7 @@ export default class Environment extends React.Component<any, any> {
         };
 
         this.init = this.init.bind(this);
+        this.reset = this.reset.bind(this);
         this.prev = this.prev.bind(this);
         this.next = this.next.bind(this);
         this.addSimulator = this.addSimulator.bind(this);
@@ -29,6 +30,7 @@ export default class Environment extends React.Component<any, any> {
                 <Controller
                     memory={this.props.memory}
                     initCallback={this.init}
+                    resetCallback={this.reset}
                     prevCallback={this.prev}
                     nextCallback={this.next}
                     addSimulatorCallback={this.addSimulator}
@@ -55,6 +57,17 @@ export default class Environment extends React.Component<any, any> {
 
     public init() {
         this.setState({ objects: [] })
+    }
+
+    public reset() {
+        this.state.objects.map((object: [SimulatorAccessor, JSX.Element, React.RefObject<Object>]) => {
+            if (object[2].current !== null) {
+                object[0].reset();
+                const value = object[0].getValue();
+                object[2].current.reset(value[0], value[1]);
+            }
+        });
+        this.setState({ _dummy: this.state.dummy-1 });
     }
 
     public prev() {
