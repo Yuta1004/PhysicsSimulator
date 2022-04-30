@@ -192,6 +192,7 @@ export default class Controller extends React.Component<any, any> {
             tag,
             color
         );
+        this.setState({ started: true });
     }
 
     private resumeOrStopSimulate() {
@@ -201,8 +202,7 @@ export default class Controller extends React.Component<any, any> {
             }, 100/this.state.speed);
             this.setState({
                 intervalID: intervalID,
-                playIcon: <IoStopSharp size={20}/>,
-                started: true
+                playIcon: <IoStopSharp size={20}/>
             });
         } else {
             clearInterval(this.state.intervalID);
