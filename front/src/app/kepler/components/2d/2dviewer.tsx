@@ -4,7 +4,19 @@ import { Stage } from "react-konva";
 import Background from "./layers/background";
 import Environment from "./layers/environment";
 
+type Pos = { x: number, y: number };
+const calcDist = (pos1: Pos, pos2: Pos) => Math.pow(pos1.x-pos2.x, 2) + Math.pow(pos1.y-pos2.y, 2);
+const calcCenter = (pos1: Pos, pos2: Pos) => {
+    return {
+        x: (pos1.x+pos2.x)/2,
+        y: (pos1.y+pos2.y)/2
+    };
+};
+
 export default class Viewer2D extends React.Component<any, any> {
+    lastTouchedCenter: Pos|null = null;
+    lastTouchedDist: number = 0;
+
     constructor(props: any) {
         super(props);
 
@@ -12,8 +24,6 @@ export default class Viewer2D extends React.Component<any, any> {
             stageScale: 0.6,
             stageX: window.innerWidth/2,
             stageY: window.innerHeight/2,
-            lastTouchedCenter: null,
-            lastTouchedDist: 0,
             _dummy: 0
         };
 
@@ -74,52 +84,34 @@ export default class Viewer2D extends React.Component<any, any> {
         if (!touch1 || !touch2) {
             return;
         }
-
-        type Pos = { x: number, y: number };
-        const calcDist = (pos1: Pos, pos2: Pos) => Math.pow(pos1.x-pos2.x, 2) + Math.pow(pos1.y-pos2.y, 2);
-        const calcCenter = (pos1: Pos, pos2: Pos) => {
-            return {
-                x: (pos1.x+pos2.x)/2,
-                y: (pos1.y+pos2.y)/2
-            };
-        };
-
-        const stage = e.target.getStage();
-        if (stage.isDragging()) {
-            stage.stopDrag();
-        }
+        e.target.getStage().stopDrag();
 
         const pos1 = { x: touch1.clientX, y: touch1.clientY };
         const pos2 = { x: touch2.clientX, y: touch2.clientY };
 
         const center = calcCenter(pos1, pos2);
-        if (!this.state.lastTouchedCenter) {
-            this.setState({ lastTouchedCenter: center });
+        if (!this.lastTouchedCenter) {
+            this.lastTouchedCenter = center;
             return;
         }
 
         const dist = calcDist(pos1, pos2);
-        if (!this.state.lastTouchedDist) {
-            this.setState({ lastTouchedDist: dist });
+        if (!this.lastTouchedDist) {
+            this.lastTouchedDist = dist;
         }
 
-        const pointTo = {
-            x: (center.x-stage.x()) / this.state.stageScale,
-            y: (center.y-stage.y()) / this.state.stageScale,
-        };
-        const scale = stage.scaleX() * (dist/this.state.lastTouchedDist);
-        const dx = center.x - this.state.lastTouchedCenter.x;
-        const dy = center.y - this.state.lastTouchedCenter.y;
+        var scale = this.state.stageScale;
+        if (dist < this.lastTouchedDist) {
+            scale /= 1.1;
+        } else if (dist > this.lastTouchedDist) {
+            scale *= 1.1;
+        }
 
-        console.log("test");
-        this.setState({
-            stageScale: scale,
-            stageX: center.x - pointTo.x*scale + dx,
-            stageY: center.y - pointTo.y*scale + dy
-        });
+        this.setState({ stageScale: scale });
     }
 
     private onTouchEnd () {
-        this.setState({ lastTouchedDist: 0, lastTouchedCenter: null });
+        this.lastTouchedCenter = null;
+        this.lastTouchedDist = 0;
     }
 }
