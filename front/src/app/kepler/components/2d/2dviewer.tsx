@@ -1,5 +1,7 @@
 import React from "react";
 import { Stage } from "react-konva";
+import { FiSettings } from "react-icons/fi";
+import { BsImages } from "react-icons/bs";
 
 import Background from "./layers/background";
 import Environment from "./layers/environment";
@@ -86,6 +88,25 @@ export default class Viewer2D extends React.Component<any, any> {
                     viewHistoriesNum={this.state.viewHistoriesNum}
                     updateCallback={this.updateSettings}
                 />
+                <div
+                    style={{
+                        position: "absolute",
+                        bottom: "0",
+                        right: "0",
+                        margin: "20px"
+                    }}
+                >
+                    <BsImages
+                        style={{ margin: "0 10px" }}
+                        color="#000a"
+                        size={50}
+                    />
+                    <FiSettings
+                        style={{ margin: "0 10px" }}
+                        color="#000a"
+                        size={50}
+                    />
+                </div>
             </div>
         );
     }
