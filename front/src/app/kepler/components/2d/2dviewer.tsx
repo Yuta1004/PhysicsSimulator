@@ -3,6 +3,7 @@ import { Stage } from "react-konva";
 
 import Background from "./layers/background";
 import Environment from "./layers/environment";
+import Settings from "./components/settings";
 
 type Pos = { x: number, y: number };
 const calcDist = (pos1: Pos, pos2: Pos) => Math.pow(pos1.x-pos2.x, 2) + Math.pow(pos1.y-pos2.y, 2);
@@ -52,10 +53,10 @@ export default class Viewer2D extends React.Component<any, any> {
                     <Background/>
                     <Environment
                         memory={this.props.memory}
-                        blocksNum={this.props.blocksNum}
-                        stepsNum={this.props.stepsNum}
-                        loadBlocksNum={this.props.loadBlocksNum}
-                        viewHistoriesNum={this.props.viewHistoriesNum}
+                        blocksNum={10}
+                        stepsNum={600}
+                        loadBlocksNum={300}
+                        viewHistoriesNum={-1}
                     />
                 </Stage>
                 <h1
@@ -66,6 +67,15 @@ export default class Viewer2D extends React.Component<any, any> {
                 }}>
                     KEPLER☆
                 </h1>
+                <Settings
+                    style={{
+                        position: "absolute",
+                        top: "0",
+                        right: "0",
+                        margin: "20px 40px",
+                        width: "30%"
+                    }} 
+                />
             </div>
         );
     }
