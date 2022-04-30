@@ -35,22 +35,32 @@ export default class Viewer2D extends React.Component<any, any> {
 
     render() {
         return (
-            <Stage
-                width={window.innerWidth}
-                height={window.innerHeight}
-                scaleX={this.state.stageScale}
-                scaleY={this.state.stageScale}
-                onWheel={this.onWheel}
-                onDragMove={this.onDragMove}
-                onTouchMove={this.onTouchMove}
-                onTouchEnd={this.onTouchEnd}
-                x={this.state.stageX}
-                y={this.state.stageY}
-                draggable
-            >
-                <Background/>
-                <Environment memory={this.props.memory}/>
-            </Stage>
+            <div>
+                <Stage
+                    width={window.innerWidth}
+                    height={window.innerHeight}
+                    scaleX={this.state.stageScale}
+                    scaleY={this.state.stageScale}
+                    onWheel={this.onWheel}
+                    onDragMove={this.onDragMove}
+                    onTouchMove={this.onTouchMove}
+                    onTouchEnd={this.onTouchEnd}
+                    x={this.state.stageX}
+                    y={this.state.stageY}
+                    draggable
+                >
+                    <Background/>
+                    <Environment memory={this.props.memory}/>
+                </Stage>
+                <h1
+                    style={{
+                        position: "absolute",
+                        top: "0",
+                        left: "15px"
+                }}>
+                    KEPLER☆
+                </h1>
+            </div>
         );
     }
 
