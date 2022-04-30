@@ -112,6 +112,12 @@ export default class Controller extends React.Component<any, any> {
                             >
                                 追加
                             </button>
+                        </div>
+                        <div style={{
+                            display: "flex",
+                            width: "90%",
+                            margin: "10px auto"
+                        }}>
                             <button
                                 style={{ width: "100%", margin: "0 10px" }}
                                 onClick={() => {
@@ -121,6 +127,12 @@ export default class Controller extends React.Component<any, any> {
                                     }
                                     this.setState({ started: false });
                                 }}
+                            >
+                                初期化
+                            </button>
+                            <button
+                                style={{ width: "100%", margin: "0 10px" }}
+                                onClick={() => {}}
                             >
                                 リセット
                             </button>
