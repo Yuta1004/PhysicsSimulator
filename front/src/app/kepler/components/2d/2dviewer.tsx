@@ -50,7 +50,12 @@ export default class Viewer2D extends React.Component<any, any> {
                     draggable
                 >
                     <Background/>
-                    <Environment memory={this.props.memory}/>
+                    <Environment
+                        memory={this.props.memory}
+                        blocksNum={this.props.blocksNum}
+                        stepsNum={this.props.stepsNum}
+                        loadBlocksNum={this.props.loadBlocksNum}
+                    />
                 </Stage>
                 <h1
                     style={{

@@ -8,6 +8,13 @@ export default class Kepler extends React.Component<any> {
     }
 
     render() {
-        return <Viewer2D memory={this.props.memory}/>
+        return (
+            <Viewer2D
+                memory={this.props.memory}
+                blocksNum={10}
+                stepsNum={600}
+                loadBlocksNum={300}
+            />
+        );
     }
 }

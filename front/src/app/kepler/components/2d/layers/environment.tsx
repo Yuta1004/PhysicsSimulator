@@ -34,6 +34,9 @@ export default class Environment extends React.Component<any, any> {
                     prevCallback={this.prev}
                     nextCallback={this.next}
                     addSimulatorCallback={this.addSimulator}
+                    blocksNum={this.props.blocksNum}
+                    stepsNum={this.props.stepsNum}
+                    loadBlocksNum={this.props.loadBlocksNum}
                 />
             </Layer>
         );
