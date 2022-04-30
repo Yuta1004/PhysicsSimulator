@@ -35,6 +35,15 @@ export default class SimulatorAccessor {
         this.okStepIdxU = this.blocks_num*this.block_size/this.step_size-1;
     }
 
+    public reset() {
+        this.memManager.reset();
+        this.speed = 0;
+        this.stepIdx = 0;
+        this.memIdx = 0;
+        this.okStepIdxL = 0;
+        this.okStepIdxU = this.blocks_num*this.block_size/this.step_size-1;
+    }
+
     public getValue() {
         if (this.stepIdx < this.okStepIdxL || this.okStepIdxU < this.stepIdx) {
             this.loadStartCallback();

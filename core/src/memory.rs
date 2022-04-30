@@ -70,6 +70,13 @@ impl MemManager {
         self.generator.get_step_size()
     }
 
+    pub fn reset(&mut self) {
+        self.block_l = -self.blocks_num;
+        self.block_u = -1;
+        self.boundary_idx = 0;
+        self.load_next(self.blocks_num);
+    }
+
     pub fn load_prev(&mut self, load_blocks_num: i32) -> i32 {
         let mut load_blocks_num = load_blocks_num;
         if self.block_l < load_blocks_num {
