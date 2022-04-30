@@ -1,0 +1,22 @@
+body {
+    background-color: #181818;
+}
+
+h1, h2 {
+    text-align: center;
+    color: white;
+}
+
+img {
+    display: block;
+    margin: 50px auto;
+    border: 1px solid white;
+    width: 80%;
+}
+
+p {
+    display: block;
+    margin: auto;
+    color: white;
+    width: 50%;
+}
