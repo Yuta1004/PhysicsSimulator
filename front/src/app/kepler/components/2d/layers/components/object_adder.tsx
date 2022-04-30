@@ -55,7 +55,7 @@ export default class ObjectAdder extends React.Component<any, any> {
             <Html transform={false}>
                 <div
                     style={{
-                    background: "#cccf",
+                    background: "#cccb",
                     border: "1px solid black",
                     borderRadius: "15px",
                     width: "fit-content",
@@ -183,7 +183,7 @@ export default class ObjectAdder extends React.Component<any, any> {
                             onChange={this.onValueChange}
                         />
                     </div>
-                    <hr style={{ margin: "20px 0 10px 0" }}/>
+                    <hr style={{ border: "1px dashed #222b", margin: "20px 0 10px 0" }}/>
                     <button
                         style={{ width: "100%", margin: "5px 0" }}
                         onClick={() => {

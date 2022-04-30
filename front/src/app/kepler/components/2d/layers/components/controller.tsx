@@ -32,7 +32,7 @@ export default class Controller extends React.Component<any, any> {
             <Group>
                 <Html transform={false}>
                     <div style={{
-                        background: "#ccc7",
+                        background: "#ccc5",
                         border: "1px solid black",
                         borderRadius: "15px",
                         width: "fit-content",
