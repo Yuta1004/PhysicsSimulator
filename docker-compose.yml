@@ -6,7 +6,7 @@ services:
             TZ: Asia/Tokyo
         volumes:
             - ./proxy/nginx.conf:/etc/nginx/nginx.conf:ro
-            - ./proxy/static:/usr/share/nginx/html:ro
+            - ./proxy/static:/usr/share/nginx/html/sites:ro
         ports:
             - $PORT:80
         depends_on:
