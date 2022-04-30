@@ -11,10 +11,12 @@ export default class Viewer2D extends React.Component<any, any> {
         this.state = {
             stageScale: 0.6,
             stageX: window.innerWidth/2,
-            stageY: window.innerHeight/2
+            stageY: window.innerHeight/2,
+            _dummy: 0
         };
 
         this.onWheel = this.onWheel.bind(this);
+        this.onDragMove = this.onDragMove.bind(this);
     }
 
     render() {
@@ -25,6 +27,7 @@ export default class Viewer2D extends React.Component<any, any> {
                 scaleX={this.state.stageScale}
                 scaleY={this.state.stageScale}
                 onWheel={this.onWheel}
+                onDragMove={this.onDragMove}
                 x={this.state.stageX}
                 y={this.state.stageY}
                 draggable
@@ -51,5 +54,9 @@ export default class Viewer2D extends React.Component<any, any> {
             stageX: -(mousePos.x - stage.getPointerPosition().x/newScale) * newScale,
             stageY: -(mousePos.y - stage.getPointerPosition().y/newScale) * newScale,
         });
+    }
+
+    private onDragMove() {
+        this.setState({ _dummy: this.state._dummy-1 });
     }
 }

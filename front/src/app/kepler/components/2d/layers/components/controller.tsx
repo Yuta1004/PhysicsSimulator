@@ -30,12 +30,11 @@ export default class Controller extends React.Component<any, any> {
     render() {
         return (
             <Group>
-                <Html
-                    transform={false}
-                    divProps={{ style: {
+                <Html transform={false}>
+                    <div style={{
                         background: "#ccc7",
                         border: "1px solid black",
-                        ["border-radius"]: "15px",
+                        borderRadius: "15px",
                         width: "fit-content",
                         position: "absolute",
                         left: "50%",
@@ -44,86 +43,88 @@ export default class Controller extends React.Component<any, any> {
                         bottom: "-5%",
                         padding: "15px",
                         visibility: this.state.panelVisibility
-                }}}>
-                    <div style={{
-                        display: "flex",
-                        width: "100%",
-                        margin: "0 auto",
                     }}>
-                        <button style={{ margin: "0 10px", padding: "10px 20px" }} onClick={this.props.prevCallback}>
-                            <IoPlayBackSharp size={20}/>
-                        </button>
-                        <button style={{ margin: "0 10px", padding: "10px 20px" }} onClick={this.resumeOrStopSimulate}>
-                            {this.state.playIcon}
-                        </button>
-                        <button style={{ margin: "0 10px", padding: "10px 20px" }} onClick={this.props.nextCallback}>
-                            <IoPlayForwardSharp size={20}/>
-                        </button>
-                    </div>
-                    <div style={{
-                        display: "flex",
-                        width: "90%",
-                        margin: "10px auto"
-                    }}>
-                        dt({this.state.dt})
-                        <input
-                            style={{ width: "50%", position: "absolute", left: "40%" }}
-                            type="range"
-                            min={0.01}
-                            max={2.0}
-                            step={0.01}
-                            value={this.state.dt}
-                            onChange={(e: any) => { this.setState({ dt: e.target.value }); }}
-                            disabled={this.state.started}
-                        />
-                    </div>
-                    <div style={{
-                        display: "flex",
-                        width: "90%",
-                        margin: "10px auto"
-                    }}>
-                        speed({this.state.speed})
-                        <input
-                            style={{ width: "50%", position: "absolute", left: "40%" }}
-                            type="range"
-                            min={0.1}
-                            max={4.0}
-                            step={0.1}
-                            value={this.state.speed}
-                            onChange={(e:any) => {
-                                this.setState({ speed: e.target.value });
-                                if (this.state.intervalID !== -1) {
-                                    this.resumeOrStopSimulate();
-                                    this.resumeOrStopSimulate();
-                                }
-                            }}
-                        />
-                    </div>
-                    <div style={{
-                        display: "flex",
-                        width: "90%",
-                        margin: "10px auto"
-                    }}>
-                        <button
-                            style={{ width: "100%", margin: "0 10px" }}
-                            onClick={() => {
-                                this.setState({ addUIVisibility: "visible"});
-                            }}
-                        >
-                            追加
-                        </button>
-                        <button
-                            style={{ width: "100%", margin: "0 10px" }}
-                            onClick={() => {
-                                this.props.resetCallback();
-                                if (this.state.intervalID !== -1) {
-                                    this.resumeOrStopSimulate();
-                                }
-                                this.setState({ started: false });
-                            }}
-                        >
-                            リセット
-                        </button>
+                        <div style={{
+                            display: "flex",
+                            width: "100%",
+                            margin: "0 auto",
+                            visibility: this.state.panelVisibility
+                        }}>
+                            <button style={{ margin: "0 10px", padding: "10px 20px" }} onClick={this.props.prevCallback}>
+                                <IoPlayBackSharp size={20}/>
+                            </button>
+                            <button style={{ margin: "0 10px", padding: "10px 20px" }} onClick={this.resumeOrStopSimulate}>
+                                {this.state.playIcon}
+                            </button>
+                            <button style={{ margin: "0 10px", padding: "10px 20px" }} onClick={this.props.nextCallback}>
+                                <IoPlayForwardSharp size={20}/>
+                            </button>
+                        </div>
+                        <div style={{
+                            display: "flex",
+                            width: "90%",
+                            margin: "10px auto"
+                        }}>
+                            dt({this.state.dt})
+                            <input
+                                style={{ width: "50%", position: "absolute", left: "40%" }}
+                                type="range"
+                                min={0.01}
+                                max={2.0}
+                                step={0.01}
+                                value={this.state.dt}
+                                onChange={(e: any) => { this.setState({ dt: e.target.value }); }}
+                                disabled={this.state.started}
+                            />
+                        </div>
+                        <div style={{
+                            display: "flex",
+                            width: "90%",
+                            margin: "10px auto"
+                        }}>
+                            speed({this.state.speed})
+                            <input
+                                style={{ width: "50%", position: "absolute", left: "40%" }}
+                                type="range"
+                                min={0.1}
+                                max={4.0}
+                                step={0.1}
+                                value={this.state.speed}
+                                onChange={(e:any) => {
+                                    this.setState({ speed: e.target.value });
+                                    if (this.state.intervalID !== -1) {
+                                        this.resumeOrStopSimulate();
+                                        this.resumeOrStopSimulate();
+                                    }
+                                }}
+                            />
+                        </div>
+                        <div style={{
+                            display: "flex",
+                            width: "90%",
+                            margin: "10px auto"
+                        }}>
+                            <button
+                                style={{ width: "100%", margin: "0 10px" }}
+                                onClick={() => {
+                                    this.setState({ addUIVisibility: "visible"});
+                                }}
+                            >
+                                追加
+                            </button>
+                            <button
+                                style={{ width: "100%", margin: "0 10px" }}
+                                onClick={() => {
+                                    this.props.resetCallback();
+                                    if (this.state.intervalID !== -1) {
+                                        this.resumeOrStopSimulate();
+                                    }
+                                    this.setState({ started: false });
+                                }}
+                            >
+                                リセット
+                            </button>
+                        </div>
                     </div>
                 </Html>
                 <Html
