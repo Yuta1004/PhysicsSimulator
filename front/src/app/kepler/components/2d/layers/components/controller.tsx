@@ -143,16 +143,19 @@ export default class Controller extends React.Component<any, any> {
                         width: "100%",
                         margin: "0auto"
                     }}>
-                        <input
-                            type="checkbox"
-                            checked={this.state.panelVisibility === "visible"}
-                            onChange={(e: any) => {
-                                this.setState({
-                                    panelVisibility: e.target.checked ? "visible" : "hidden"  
-                                });
-                            }}
-                        />
-                        コントロールパネルを表示する
+                        <label htmlFor="changeVisibility">
+                            <input
+                                type="checkbox"
+                                id="changeVisibility"
+                                checked={this.state.panelVisibility === "visible"}
+                                onChange={(e: any) => {
+                                    this.setState({
+                                        panelVisibility: e.target.checked ? "visible" : "hidden"  
+                                    });
+                                }}
+                            />
+                            コントロールパネルを表示する
+                        </label>
                     </div>
                 </Html>
                 <ObjectAdder
