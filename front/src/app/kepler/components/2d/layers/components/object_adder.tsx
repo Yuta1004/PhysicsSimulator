@@ -8,7 +8,7 @@ export default class ObjectAdder extends React.Component<any, any> {
             y: 0.0,
             vx: 0.0,
             vy: 1.3,
-            M: 1.0,
+            m: 1.0,
             tag: "Planet",
             color: "#ff0000"
         },
@@ -17,7 +17,7 @@ export default class ObjectAdder extends React.Component<any, any> {
             y: 0.0,
             vx: 0.0,
             vy: 1.7,
-            M: 100.0,
+            m: 0.01,
             tag: "Satelite",
             color: "#00ff00"
         },
@@ -26,7 +26,7 @@ export default class ObjectAdder extends React.Component<any, any> {
             y: 2.0,
             vx: 0.0,
             vy: 1.2,
-            M: 1.0,
+            m: 1.0,
             tag: "Comet",
             color: "#0000ff"
         }
@@ -41,7 +41,7 @@ export default class ObjectAdder extends React.Component<any, any> {
             y: this.defaultValues.planet.y,
             vx: this.defaultValues.planet.vx,
             vy: this.defaultValues.planet.vy,
-            M: this.defaultValues.planet.M,
+            m: this.defaultValues.planet.m,
             tag: this.defaultValues.planet.tag,
             color: this.defaultValues.planet.color
         };
@@ -146,12 +146,12 @@ export default class ObjectAdder extends React.Component<any, any> {
                         width: "90%",
                         margin: "10px auto",
                     }}>
-                        M:
+                        m:
                         <input
                             style={{ width: "45%", position: "absolute", left: "40%" }}
                             type="value"
-                            name="M"
-                            value={this.state.M}
+                            name="m"
+                            value={this.state.m}
                             onChange={this.onValueChange}
                         />
                     </div>
@@ -193,7 +193,7 @@ export default class ObjectAdder extends React.Component<any, any> {
                                 this.state.y,
                                 this.state.vx,
                                 this.state.vy,
-                                this.state.M,
+                                this.state.m,
                                 this.state.tag,
                                 this.state.color
                             );
@@ -210,7 +210,7 @@ export default class ObjectAdder extends React.Component<any, any> {
                                 this.state.y,
                                 this.state.vx,
                                 this.state.vy,
-                                this.state.M,
+                                this.state.m,
                                 this.state.tag,
                                 this.state.color
                             );
@@ -244,7 +244,7 @@ export default class ObjectAdder extends React.Component<any, any> {
             y: defaultValue.y,
             vx: defaultValue.vx,
             vy: defaultValue.vy,
-            M: defaultValue.M,
+            m: defaultValue.m,
             tag: defaultValue.tag,
             color: defaultValue.color
         });

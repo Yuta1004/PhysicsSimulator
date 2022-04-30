@@ -1,21 +1,20 @@
 use super::Calculator;
 
 #[derive(Clone)]
-#[allow(non_snake_case)]
 pub struct Satelite {
     x: f64,
     y: f64,
     vx: f64,
     vy: f64,
 
-    Mu: f64,
+    m: f64,
     dt: f64
 }
 
-#[allow(non_snake_case)]
 impl Satelite {
-    pub fn new(x: f64, y: f64, vx: f64, vy: f64, Mu: f64, dt: f64) -> Satelite {
-        Satelite { x, y, vx, vy, Mu, dt }
+    pub fn new(x: f64, y: f64, vx: f64, vy: f64, m: f64, dt: f64) -> Satelite {
+        let m = 1.0/m;
+        Satelite { x, y, vx, vy, m, dt }
     }
 }
 
@@ -30,7 +29,7 @@ impl Calculator for Satelite {
         let mut ky: [f64; 4] = [0.0, 0.0, 0.0, 0.0];
         let mut hx: [f64; 4] = [0.0, 0.0, 0.0, 0.0];
         let mut hy: [f64; 4] = [0.0, 0.0, 0.0, 0.0];
-        let fnf = |r: f64| -> f64 { -self.Mu / r.powi(3) };
+        let fnf = |r: f64| -> f64 { -self.m / r.powi(3) };
 
         // ルンゲ・クッタ法 (1)
         let radius = (x.powi(2)+y.powi(2)).sqrt();
