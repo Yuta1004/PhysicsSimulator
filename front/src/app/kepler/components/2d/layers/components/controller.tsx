@@ -87,7 +87,7 @@ export default class Controller extends React.Component<any, any> {
                                 style={{ width: "50%", position: "absolute", left: "40%" }}
                                 type="range"
                                 min={0.1}
-                                max={4.0}
+                                max={10.0}
                                 step={0.1}
                                 value={this.state.speed}
                                 onChange={(e:any) => {
