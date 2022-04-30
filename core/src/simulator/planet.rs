@@ -14,11 +14,12 @@ pub struct Planet {
 
 #[allow(non_snake_case)]
 impl Planet {
-    pub fn new(x: f64, y: f64, v: f64, M: f64, dt: f64) -> Planet {
+    pub fn new(x: f64, y: f64, vx: f64, vy: f64, M: f64, dt: f64) -> Planet {
         let radius = (x.powi(2)+y.powi(2)).sqrt();
-        let vy = (1.0/radius).sqrt() * v;
+        let vx = (1.0/radius).sqrt() * vx;
+        let vy = (1.0/radius).sqrt() * vy;
 
-        Planet { x, y, vx: 0.0, vy, M, dt }
+        Planet { x, y, vx, vy, M, dt }
     }
 }
 

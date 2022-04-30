@@ -14,11 +14,12 @@ pub struct Comet {
 
 #[allow(non_snake_case)]
 impl Comet {
-    pub fn new(x: f64, y: f64, v: f64, M: f64, dt: f64) -> Comet {
+    pub fn new(x: f64, y: f64, vx: f64, vy: f64, M: f64, dt: f64) -> Comet {
         let radius = (x.powi(2)+y.powi(2)).sqrt();
-        let vy = (1.0/radius).sqrt() * 0.5 * v;
+        let vx = (1.0/radius).sqrt() * 0.5 * vx;
+        let vy = (1.0/radius).sqrt() * 0.5 * vy;
 
-        Comet { x, y, vx: 0.0, vy, M, dt }
+        Comet { x, y, vx, vy, M, dt }
     }
 }
 
