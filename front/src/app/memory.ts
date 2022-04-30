@@ -5,7 +5,7 @@ export default class SimulatorAccessor {
     private blocks_num: number
     private block_size: number
     private step_size: number
-    private sharedMemory: Float64Array
+    private memory: WebAssembly.Memory
     
     private loadBlocks: number
     private loadStartCallback: Function
@@ -22,7 +22,7 @@ export default class SimulatorAccessor {
         this.blocks_num = memManager.get_blocks_num();
         this.block_size = memManager.get_block_size();
         this.step_size = memManager.get_step_size();
-        this.sharedMemory = new Float64Array(memory.buffer, memManager.as_mem_ptr(), this.blocks_num*this.block_size);
+        this.memory = memory;
         
         this.loadBlocks = loadBlocks;
         this.loadStartCallback = loadStartCallback;
@@ -51,8 +51,9 @@ export default class SimulatorAccessor {
         }
 
         const values = [];
-        for (var idx = this.memIdx; idx < this.memIdx+this.step_size; ++ idx) {
-            values.push(this.sharedMemory[idx]);
+        const sharedMemory = new Float64Array(this.memory.buffer, this.memManager.as_mem_ptr()+this.memIdx*8, this.step_size*8);
+        for (var idx = 0; idx < this.step_size; ++ idx) {
+            values.push(sharedMemory[idx]);
         }
         return values;
     }
