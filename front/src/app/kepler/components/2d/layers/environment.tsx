@@ -53,6 +53,7 @@ export default class Environment extends React.Component<any, any> {
             x={value[0]}
             y={value[1]}
             ref={objectRef}
+            viewHistoriesNum={this.props.viewHistoriesNum}
         />;
         objects.push([simulator, object, objectRef]);
         this.setState({ objects: objects });

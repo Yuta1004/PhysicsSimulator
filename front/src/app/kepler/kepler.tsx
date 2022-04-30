@@ -14,6 +14,7 @@ export default class Kepler extends React.Component<any> {
                 blocksNum={10}
                 stepsNum={600}
                 loadBlocksNum={300}
+                viewHistoriesNum={-1}
             />
         );
     }

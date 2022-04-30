@@ -55,6 +55,7 @@ export default class Viewer2D extends React.Component<any, any> {
                         blocksNum={this.props.blocksNum}
                         stepsNum={this.props.stepsNum}
                         loadBlocksNum={this.props.loadBlocksNum}
+                        viewHistoriesNum={this.props.viewHistoriesNum}
                     />
                 </Stage>
                 <h1
