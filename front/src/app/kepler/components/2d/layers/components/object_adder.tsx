@@ -90,7 +90,7 @@ export default class ObjectAdder extends React.Component<any, any> {
                         width: "90%",
                         margin: "10px auto",
                     }}>
-                        X:
+                        X
                         <input
                             style={{ width: "45%", position: "absolute", left: "40%" }}
                             type="value"
@@ -104,7 +104,7 @@ export default class ObjectAdder extends React.Component<any, any> {
                         width: "90%",
                         margin: "10px auto",
                     }}>
-                        Y:
+                        Y
                         <input
                             style={{ width: "45%", position: "absolute", left: "40%" }}
                             type="value"
@@ -118,7 +118,7 @@ export default class ObjectAdder extends React.Component<any, any> {
                         width: "90%",
                         margin: "10px auto",
                     }}>
-                        Vx:
+                        Vx
                         <input
                             style={{ width: "45%", position: "absolute", left: "40%" }}
                             type="value"
@@ -132,7 +132,7 @@ export default class ObjectAdder extends React.Component<any, any> {
                         width: "90%",
                         margin: "10px auto",
                     }}>
-                        Vy:
+                        Vy
                         <input
                             style={{ width: "45%", position: "absolute", left: "40%" }}
                             type="value"
@@ -146,7 +146,7 @@ export default class ObjectAdder extends React.Component<any, any> {
                         width: "90%",
                         margin: "10px auto",
                     }}>
-                        m:
+                        m
                         <input
                             style={{ width: "45%", position: "absolute", left: "40%" }}
                             type="value"
@@ -160,7 +160,7 @@ export default class ObjectAdder extends React.Component<any, any> {
                         width: "90%",
                         margin: "10px auto",
                     }}>
-                        タグ:
+                        タグ
                         <input
                             style={{ width: "45%", position: "absolute", left: "40%" }}
                             type="text"
@@ -174,7 +174,7 @@ export default class ObjectAdder extends React.Component<any, any> {
                         width: "90%",
                         margin: "15px auto",
                     }}>
-                        表示色:
+                        表示色
                         <input
                             style={{ width: "45%", position: "absolute", left: "40%" }}
                             type="color"
