@@ -121,7 +121,7 @@ export default class Controller extends React.Component<any, any> {
                             <button
                                 style={{ width: "100%", margin: "0 10px" }}
                                 onClick={() => {
-                                    this.props.resetCallback();
+                                    this.props.initCallback();
                                     if (this.state.intervalID !== -1) {
                                         this.resumeOrStopSimulate();
                                     }
